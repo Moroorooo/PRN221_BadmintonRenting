@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace BadmintonRentingData.Model
+{
+    public partial class BadmintonField
+    {
+        public BadmintonField()
+        {
+            BookingBadmintonFieldSchedules = new HashSet<BookingBadmintonFieldSchedule>();
+        }
+
+        public long BadmintonFieldId { get; set; }
+        public string BadmintonFieldName { get; set; } = null!;
+        public string Address { get; set; } = null!;
+        public string? Description { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
+        public string IsStatus { get; set; } = null!;
+
+        public virtual ICollection<BookingBadmintonFieldSchedule> BookingBadmintonFieldSchedules { get; set; }
+    }
+}
