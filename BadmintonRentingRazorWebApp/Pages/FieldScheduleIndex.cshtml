@@ -1,0 +1,60 @@
+﻿@page
+@model BadmintonRentingRazorWebApp.Pages.FieldScheduleIndexModel
+
+@{
+    ViewData["Title"] = "FieldScheduleIndex";
+}
+
+<h1>FieldScheduleIndex</h1>
+
+<p>
+    <a asp-page="FieldScheduleCreate">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BookingId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonFieldName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].ScheduleName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.BookingBadmintonFieldSchedule) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BadmintonFieldName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduleName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.OrderBadmintonFieldScheduleId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.OrderBadmintonFieldScheduleId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.OrderBadmintonFieldScheduleId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
