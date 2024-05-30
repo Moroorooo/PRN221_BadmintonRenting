@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace BadmintonRentingData.Model
@@ -39,7 +36,7 @@ namespace BadmintonRentingData.Model
             if (!optionsBuilder.IsConfigured)
             {
                 //optionsBuilder.UseSqlServer(GetConnectionString());
-                optionsBuilder.UseSqlServer("server=(local);database=Net1702_PRN221_BadmintonBooking;uid=sa;password=1234567890;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer("server=(local);database=Net1702_PRN221_BadmintonBooking;uid=sa;password=12345;TrustServerCertificate=True;");
             }
         }
 
