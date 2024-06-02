@@ -6,25 +6,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
+using BadmintonRentingBusiness;
+using BadmintonRentingCommon;
 
 namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class IndexModel : PageModel
     {
-        private readonly BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext _context;
+        private readonly ICustomerBusiness _customerBusiness;
 
-        public IndexModel(BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext context)
+        public IndexModel(ICustomerBusiness customerBusiness)
         {
-            _context = context;
+            _customerBusiness = customerBusiness;
         }
 
-        public IList<Customer> Customer { get;set; } = default!;
+        public IList<Customer> Customer { get; set; } = new List<Customer>();
 
         public async Task OnGetAsync()
         {
-            if (_context.Customers != null)
+            var result = await _customerBusiness.GetAll();
+            if (result.Status == Const.SUCCESS_READ_CODE)
             {
-                Customer = await _context.Customers.ToListAsync();
+                Customer = (List<Customer>)result.Data;
+            }
+            else
+            {
+                
             }
         }
     }

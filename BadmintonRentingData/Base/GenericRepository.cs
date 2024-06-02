@@ -27,7 +27,8 @@ namespace BadmintonRentingData.Base
 
         public async Task<List<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            var list = await _dbSet.ToListAsync();
+            return list;
         }
 
         public void Create(T entity)
