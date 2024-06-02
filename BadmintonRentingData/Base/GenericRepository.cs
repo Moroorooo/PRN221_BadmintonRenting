@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BadmintonRentingData.Base
 {
+   
     public class GenericRepository<T> where T : class
     {
         protected readonly Net1702_PRN221_BadmintonRentingContext _context;

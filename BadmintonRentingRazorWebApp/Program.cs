@@ -1,12 +1,16 @@
+using BadmintonRentingBusiness;
 using BadmintonRentingData;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
 builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICustomerBusiness, CustomerBusiness>();
 builder.Services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/FieldScheduleIndex", ""));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

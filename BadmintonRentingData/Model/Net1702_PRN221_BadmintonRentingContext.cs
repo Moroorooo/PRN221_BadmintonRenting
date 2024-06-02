@@ -20,24 +20,26 @@ namespace BadmintonRentingData.Model
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Schedule> Schedules { get; set; } = null!;
 
-        public string GetConnectionString()
-        {
-            string connectionString = null;
-            IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(@"appsettings.json", true, true)
-                .Build();
-            connectionString = config["ConnectionString:DefaultConnection"];
-            return connectionString;
-        }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer(GetConnectionString());
-                optionsBuilder.UseSqlServer("server=(local);database=Net1702_PRN221_BadmintonBooking;uid=sa;password=12345;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer(GetConnectionString());
+                //optionsBuilder.UseSqlServer("server=(local);database=Net1702_PRN221_BadmintonBooking;uid=sa;password=12345;TrustServerCertificate=True;");
             }
+        }
+
+        private string GetConnectionString()
+        {
+            IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+            var strConn = config["ConnectionStrings:DefaultConnection"];
+
+            return strConn;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

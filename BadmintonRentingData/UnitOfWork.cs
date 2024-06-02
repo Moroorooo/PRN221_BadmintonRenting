@@ -11,6 +11,8 @@ namespace BadmintonRentingData
     {
         private BookingBadmintonFieldScheduleRepository _bookingBadmintonFieldSchedule;
 
+        private CustomerRepository _customerRepository;
+
         public UnitOfWork() { }
 
         public BookingBadmintonFieldScheduleRepository BookingBadmintonFieldScheduleRepository
@@ -18,6 +20,14 @@ namespace BadmintonRentingData
             get
             {
                 return _bookingBadmintonFieldSchedule = new BookingBadmintonFieldScheduleRepository();
+            }
+        }
+
+        public CustomerRepository CustomerRepository
+        {
+            get
+            {
+                return _customerRepository ??= new CustomerRepository();
             }
         }
     }
