@@ -12,9 +12,9 @@ namespace BadmintonRentingBusiness
     public interface ICustomerBusiness
     {
         Task<IBusinessResult> GetAll();
-        Task<IBusinessResult> GetById(int id);
+        Task<IBusinessResult> GetById(long id);
         Task<IBusinessResult> Create(CustomerRequestDTO newCustomer);
-        Task<IBusinessResult> Update(int id, CustomerRequestDTO newCustomer);
-        Task<IBusinessResult> DeleteById(int id);
+        Task<IBusinessResult> Update(long id, CustomerRequestDTO newCustomer);
+        Task<IBusinessResult> DeleteById(long id);
     }
 }

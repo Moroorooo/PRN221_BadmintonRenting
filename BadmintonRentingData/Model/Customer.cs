@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace BadmintonRentingData.Model
 {
@@ -16,7 +15,7 @@ namespace BadmintonRentingData.Model
         public int Phone { get; set; }
         public string Email { get; set; } = null!;
         public string IsStatus { get; set; } = null!;
-        [JsonIgnore]
+
         public virtual ICollection<Booking> Bookings { get; set; }
     }
 }

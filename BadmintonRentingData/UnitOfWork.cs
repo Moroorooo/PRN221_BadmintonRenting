@@ -14,7 +14,7 @@ namespace BadmintonRentingData
         private Net1702_PRN221_BadmintonRentingContext _context;
 
         private CustomerRepository _customerRepository;
-        public UnitOfWork() 
+        public UnitOfWork()
         {
             _bookingBadmintonFieldSchedule ??= new BookingBadmintonFieldScheduleRepository();
             _customerRepository ??= new CustomerRepository();

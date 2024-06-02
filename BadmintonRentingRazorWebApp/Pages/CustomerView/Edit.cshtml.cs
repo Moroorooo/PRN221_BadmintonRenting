@@ -7,34 +7,43 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
+using BadmintonRentingBusiness;
+using BadmintonRentingCommon;
+using BadmintonRentingData.DTO;
 
 namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class EditModel : PageModel
     {
-        private readonly BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext _context;
 
-        public EditModel(BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext context)
+        private readonly ICustomerBusiness _customerBusiness;
+        public EditModel(ICustomerBusiness customerBusiness)
         {
-            _context = context;
+            _customerBusiness = customerBusiness;
         }
 
         [BindProperty]
         public Customer Customer { get; set; } = default!;
-
+        public string ErrorMessage { get; set; } = string.Empty;
         public async Task<IActionResult> OnGetAsync(long? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var customer =  await _context.Customers.FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
+            var result = await _customerBusiness.GetById(id.Value);
+
+            if (result.Status == Const.SUCCESS_READ_CODE && result.Data is Customer customer)
             {
+                Customer = customer;
+            }
+            else
+            {
+                ErrorMessage = result.Message ?? "Customer not found.";
                 return NotFound();
             }
-            Customer = customer;
+
             return Page();
         }
 
@@ -47,30 +56,25 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
                 return Page();
             }
 
-            _context.Attach(Customer).State = EntityState.Modified;
-
-            try
+            var customerDTO = new CustomerRequestDTO
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
+                CustomerName = Customer.CustomerName,
+                Phone = Customer.Phone,
+                Email = Customer.Email,
+                IsStatus = Customer.IsStatus
+            };
+
+            var result = await _customerBusiness.Update(Customer.CustomerId, customerDTO);
+
+            if (result.Status == Const.SUCCESS_UPDATE_CODE)
             {
-                if (!CustomerExists(Customer.CustomerId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
-
-            return RedirectToPage("./Index");
-        }
-
-        private bool CustomerExists(long id)
-        {
-          return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
+            else
+            {
+                ErrorMessage = result.Message ?? "Error updating customer.";
+                return Page();
+            }
         }
     }
 }

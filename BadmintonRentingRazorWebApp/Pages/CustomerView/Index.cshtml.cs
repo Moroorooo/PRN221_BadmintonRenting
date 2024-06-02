@@ -29,10 +29,7 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
             {
                 Customer = (List<Customer>)result.Data;
             }
-            else
-            {
-                
-            }
+            
         }
     }
 }

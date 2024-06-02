@@ -6,57 +6,65 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
+using BadmintonRentingBusiness;
+using BadmintonRentingCommon;
 
 namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class DeleteModel : PageModel
     {
-        private readonly BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext _context;
+        private readonly ICustomerBusiness _customerBusiness;
 
-        public DeleteModel(BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext context)
+        public DeleteModel(ICustomerBusiness customerBusiness)
         {
-            _context = context;
+            _customerBusiness = customerBusiness;
         }
 
         [BindProperty]
       public Customer Customer { get; set; } = default!;
 
+        public string ErrorMessage { get; set; } = string.Empty;
+
         public async Task<IActionResult> OnGetAsync(long? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FirstOrDefaultAsync(m => m.CustomerId == id);
+            var result = await _customerBusiness.GetById(id.Value);
 
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            else 
+            if (result.Status == Const.SUCCESS_READ_CODE && result.Data is Customer customer)
             {
                 Customer = customer;
             }
+            else
+            {
+                ErrorMessage = result.Message ?? "Customer not found.";
+                return NotFound();
+            }
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(long? id)
+        public async Task<IActionResult> OnPostAsync(long id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var customer = await _context.Customers.FindAsync(id);
 
-            if (customer != null)
+            var result = await _customerBusiness.DeleteById(id);
+
+            if (result.Status == Const.SUCCESS_DELETE_CODE)
             {
-                Customer = customer;
-                _context.Customers.Remove(Customer);
-                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-
-            return RedirectToPage("./Index");
+            else
+            {
+                ErrorMessage = result.Message ?? "Error deleting customer.";
+                return Page();
+            }
         }
     }
 }

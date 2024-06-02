@@ -45,15 +45,16 @@ namespace BadmintonRentingBusiness
             }
         }
 
-        public async Task<IBusinessResult> DeleteById(int id)
+        public async Task<IBusinessResult> DeleteById(long id)
         {
             try
             {
                 var customer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
                 if (customer != null)
                 {
-                    var result = await _unitOfWork.CustomerRepository.RemoveAsync(customer);
-                    if (result)
+                    customer.IsStatus = "Banned";
+                    var result = await _unitOfWork.CustomerRepository.UpdateAsync(customer);
+                    if (result > 0)
                     {
                         return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
                     }
@@ -94,7 +95,7 @@ namespace BadmintonRentingBusiness
             }
         }
 
-        public async Task<IBusinessResult> GetById(int id)
+        public async Task<IBusinessResult> GetById(long id)
         {
             try
             {
@@ -114,7 +115,7 @@ namespace BadmintonRentingBusiness
             }
         }
 
-        public async Task<IBusinessResult> Update(int id,  CustomerRequestDTO newCustomerDTO)
+        public async Task<IBusinessResult> Update(long id,  CustomerRequestDTO newCustomerDTO)
         {
             try
             {

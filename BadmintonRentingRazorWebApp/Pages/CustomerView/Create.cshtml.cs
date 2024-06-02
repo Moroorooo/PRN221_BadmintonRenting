@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BadmintonRentingData.Model;
+using BadmintonRentingBusiness;
+using BadmintonRentingCommon;
+using BadmintonRentingData.DTO;
 
 namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class CreateModel : PageModel
     {
-        private readonly BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext _context;
+        private readonly ICustomerBusiness _customerBusiness;
 
-        public CreateModel(BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext context)
+        public CreateModel(ICustomerBusiness customerBusiness)
         {
-            _context = context;
+            _customerBusiness = customerBusiness;
         }
 
         public IActionResult OnGet()
@@ -25,20 +28,35 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 
         [BindProperty]
         public Customer Customer { get; set; } = default!;
-        
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Customers == null || Customer == null)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Customers.Add(Customer);
-            await _context.SaveChangesAsync();
+            var customerDTO = new CustomerRequestDTO
+            {
+                CustomerName = Customer.CustomerName,
+                Phone = Customer.Phone,
+                Email = Customer.Email,
+                IsStatus = Customer.IsStatus
+            };
 
-            return RedirectToPage("./Index");
+            var result = await _customerBusiness.Create(customerDTO);
+
+            if (result.Status == Const.SUCCESS_CREATE_CODE)
+            {
+                return RedirectToPage("./Index");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, result.Message ?? "Error creating customer.");
+                return Page();
+            }
         }
     }
 }
