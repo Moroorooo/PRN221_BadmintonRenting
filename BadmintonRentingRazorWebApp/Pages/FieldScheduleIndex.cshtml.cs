@@ -9,30 +9,40 @@ using BadmintonRentingData.Model;
 using BadmintonRentingData.Repository;
 using BadmintonRentingData;
 using BadmintonRentingData.DTO;
+using BadmintonRentingBusiness;
 
 namespace BadmintonRentingRazorWebApp.Pages
 {
     public class FieldScheduleIndexModel : PageModel
     {
-        private readonly UnitOfWork _repository;
+        private readonly IBookingBadmintonFieldScheduleBusiness _business;
 
-        public FieldScheduleIndexModel(UnitOfWork repository)
+        public FieldScheduleIndexModel(IBookingBadmintonFieldScheduleBusiness business)
         {
-            _repository = repository;
+            _business = business;
         }
 
         public IList<FieldScheduleListViewDTO> BookingBadmintonFieldSchedule { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_repository != null)
+            if (_business != null)
             {
-                var result = await _repository.BookingBadmintonFieldScheduleRepository.GetAllAsync();
-                var dto = new FieldScheduleListViewDTO();
-                foreach (var data in result) 
+                var result = await _business.GetAll();
+                var data = (IList<BookingBadmintonFieldSchedule>)result.Data;
+                foreach (var entity in data)
                 {
-                    dto.TransformData(data);
-                };
+                    var dto = new FieldScheduleListViewDTO()
+                    {
+                        OrderBadmintonFieldScheduleId = entity.OrderBadmintonFieldScheduleId,
+                        BookingId = entity.BookingId,
+                        StartDate = entity.StartDate,
+                        EndDate = entity.EndDate,
+                        BadmintonFieldName = null,
+                        ScheduleName = null
+                    };
+                    BookingBadmintonFieldSchedule.Add(dto);
+                }
             }
         }
     }
