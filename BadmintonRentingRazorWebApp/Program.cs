@@ -1,12 +1,18 @@
 using BadmintonRentingBusiness;
 using BadmintonRentingData;
+using BadmintonRentingData.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+
 builder.Services.AddSession();
 builder.Services.AddScoped<IBookingBadmintonFieldScheduleBusiness, BookingBadmintonFieldScheduleBusiness>();
+builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICustomerBusiness, CustomerBusiness>();
+builder.Services.AddScoped<CustomerRepository>();
+//builder.Services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/FieldScheduleIndex", ""));
+builder.Services.AddRazorPages();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +31,10 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllerRoute(
+    name: "customer",
+    pattern: "Customer/{action=Index}/{id?}",
+    defaults: new { controller = "CustomerView", action = "Index" });
 
 app.UseSession();
 

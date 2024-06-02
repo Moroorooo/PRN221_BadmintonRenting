@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BadmintonRentingData.Model;
 
-namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
+namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class CreateModel : PageModel
     {
@@ -20,25 +20,22 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
 
         public IActionResult OnGet()
         {
-        ViewData["BadmintonField"] = new SelectList(_context.BadmintonFields, "BadmintonFieldId", "Address");
-        ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingType");
-        ViewData["ScheduleId"] = new SelectList(_context.Schedules, "ScheduleId", "ScheduleName");
             return Page();
         }
 
         [BindProperty]
-        public BookingBadmintonFieldSchedule BookingBadmintonFieldSchedule { get; set; } = default!;
+        public Customer Customer { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.BookingBadmintonFieldSchedules == null || BookingBadmintonFieldSchedule == null)
+          if (!ModelState.IsValid || _context.Customers == null || Customer == null)
             {
                 return Page();
             }
 
-            _context.BookingBadmintonFieldSchedules.Add(BookingBadmintonFieldSchedule);
+            _context.Customers.Add(Customer);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

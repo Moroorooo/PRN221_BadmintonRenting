@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
 
-namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
+namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class EditModel : PageModel
     {
@@ -20,24 +20,21 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
         }
 
         [BindProperty]
-        public BookingBadmintonFieldSchedule BookingBadmintonFieldSchedule { get; set; } = default!;
+        public Customer Customer { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
-            if (id == null || _context.BookingBadmintonFieldSchedules == null)
+            if (id == null || _context.Customers == null)
             {
                 return NotFound();
             }
 
-            var bookingbadmintonfieldschedule =  await _context.BookingBadmintonFieldSchedules.FirstOrDefaultAsync(m => m.OrderBadmintonFieldScheduleId == id);
-            if (bookingbadmintonfieldschedule == null)
+            var customer =  await _context.Customers.FirstOrDefaultAsync(m => m.CustomerId == id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            BookingBadmintonFieldSchedule = bookingbadmintonfieldschedule;
-           ViewData["BadmintonField"] = new SelectList(_context.BadmintonFields, "BadmintonFieldId", "Address");
-           ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingType");
-           ViewData["ScheduleId"] = new SelectList(_context.Schedules, "ScheduleId", "ScheduleName");
+            Customer = customer;
             return Page();
         }
 
@@ -50,7 +47,7 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
                 return Page();
             }
 
-            _context.Attach(BookingBadmintonFieldSchedule).State = EntityState.Modified;
+            _context.Attach(Customer).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +55,7 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookingBadmintonFieldScheduleExists(BookingBadmintonFieldSchedule.OrderBadmintonFieldScheduleId))
+                if (!CustomerExists(Customer.CustomerId))
                 {
                     return NotFound();
                 }
@@ -71,9 +68,9 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
             return RedirectToPage("./Index");
         }
 
-        private bool BookingBadmintonFieldScheduleExists(long id)
+        private bool CustomerExists(long id)
         {
-          return (_context.BookingBadmintonFieldSchedules?.Any(e => e.OrderBadmintonFieldScheduleId == id)).GetValueOrDefault();
+          return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
         }
     }
 }

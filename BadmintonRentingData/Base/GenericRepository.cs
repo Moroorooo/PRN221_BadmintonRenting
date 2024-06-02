@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BadmintonRentingData.Base
 {
+   
     public class GenericRepository<T> where T : class
     {
         protected Net1702_PRN221_BadmintonRentingContext _context;
@@ -26,7 +27,8 @@ namespace BadmintonRentingData.Base
 
         public async Task<List<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            var list = await _dbSet.ToListAsync();
+            return list;
         }
 
         public void Create(T entity)

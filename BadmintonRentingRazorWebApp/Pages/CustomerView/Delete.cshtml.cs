@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
 
-namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
+namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class DeleteModel : PageModel
     {
@@ -19,40 +19,40 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldSchedule
         }
 
         [BindProperty]
-      public BookingBadmintonFieldSchedule BookingBadmintonFieldSchedule { get; set; } = default!;
+      public Customer Customer { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
-            if (id == null || _context.BookingBadmintonFieldSchedules == null)
+            if (id == null || _context.Customers == null)
             {
                 return NotFound();
             }
 
-            var bookingbadmintonfieldschedule = await _context.BookingBadmintonFieldSchedules.FirstOrDefaultAsync(m => m.OrderBadmintonFieldScheduleId == id);
+            var customer = await _context.Customers.FirstOrDefaultAsync(m => m.CustomerId == id);
 
-            if (bookingbadmintonfieldschedule == null)
+            if (customer == null)
             {
                 return NotFound();
             }
             else 
             {
-                BookingBadmintonFieldSchedule = bookingbadmintonfieldschedule;
+                Customer = customer;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(long? id)
         {
-            if (id == null || _context.BookingBadmintonFieldSchedules == null)
+            if (id == null || _context.Customers == null)
             {
                 return NotFound();
             }
-            var bookingbadmintonfieldschedule = await _context.BookingBadmintonFieldSchedules.FindAsync(id);
+            var customer = await _context.Customers.FindAsync(id);
 
-            if (bookingbadmintonfieldschedule != null)
+            if (customer != null)
             {
-                BookingBadmintonFieldSchedule = bookingbadmintonfieldschedule;
-                _context.BookingBadmintonFieldSchedules.Remove(BookingBadmintonFieldSchedule);
+                Customer = customer;
+                _context.Customers.Remove(Customer);
                 await _context.SaveChangesAsync();
             }
 
