@@ -1,6 +1,7 @@
 ﻿using BadmintonRentingBusiness.Base;
 using BadmintonRentingCommon;
 using BadmintonRentingData;
+using BadmintonRentingData.DTO;
 using BadmintonRentingData.Model;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace BadmintonRentingBusiness
         Task<IBusinessResult> Create(BookingBadmintonFieldSchedule entity);
         Task<IBusinessResult> Update(BookingBadmintonFieldSchedule entity);
         Task<IBusinessResult> DeleteById(int id);
+        //Task<IBusinessResult> ConvertToDTO(BookingBadmintonFieldSchedule entity);
     }
 
     public class BookingBadmintonFieldScheduleBusiness : IBookingBadmintonFieldScheduleBusiness
@@ -135,5 +137,25 @@ namespace BadmintonRentingBusiness
                 return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
             }
         }
+
+        //public async Task<IBusinessResult> ConvertToDTO(BookingBadmintonFieldSchedule entity)
+        //{
+        //    try
+        //    {
+        //        var BadmintonField = await _unitOfWork.
+        //        var dto = new FieldScheduleListViewDTO()
+        //        {
+        //            OrderBadmintonFieldScheduleId = entity.OrderBadmintonFieldScheduleId,
+        //            BookingId = entity.BookingId,
+        //            StartDate = entity.StartDate,
+        //            EndDate = entity.EndDate,
+        //            BadmintonFieldName
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+        //    }
+        //}
     }
 }

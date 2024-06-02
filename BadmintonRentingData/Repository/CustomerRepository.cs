@@ -14,6 +14,6 @@ namespace BadmintonRentingData.Repository
     {
         public CustomerRepository() { }
 
-             
+        public CustomerRepository(Net1702_PRN221_BadmintonRentingContext context) => _context = context;
     }
 }

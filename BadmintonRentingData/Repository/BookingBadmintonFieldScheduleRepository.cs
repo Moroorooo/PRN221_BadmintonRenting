@@ -12,7 +12,8 @@ namespace BadmintonRentingData.Repository
     {
         public BookingBadmintonFieldScheduleRepository()
         {
-
         }
+
+        public BookingBadmintonFieldScheduleRepository(Net1702_PRN221_BadmintonRentingContext context) => _context = context;
     }
 }

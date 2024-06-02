@@ -15,19 +15,5 @@ namespace BadmintonRentingData.DTO
         public long BookingId { get; set; }
         public string BadmintonFieldName { get; set; }
         public string ScheduleName { get; set; }
-
-
-        public FieldScheduleListViewDTO TransformData (BookingBadmintonFieldSchedule entity)
-        {
-            return new FieldScheduleListViewDTO
-            {
-                OrderBadmintonFieldScheduleId = entity.OrderBadmintonFieldScheduleId,
-                StartDate = entity.StartDate,
-                EndDate = entity.EndDate,
-                BookingId = entity.BookingId,
-                BadmintonFieldName = entity.BadmintonFieldNavigation.BadmintonFieldName,
-                ScheduleName = entity.Schedule.ScheduleName
-            };
-        }
     }
 }

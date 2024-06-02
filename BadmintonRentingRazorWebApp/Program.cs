@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddSession();
+builder.Services.AddScoped<IBookingBadmintonFieldScheduleBusiness, BookingBadmintonFieldScheduleBusiness>();
 builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICustomerBusiness, CustomerBusiness>();
 builder.Services.AddScoped<CustomerRepository>();
