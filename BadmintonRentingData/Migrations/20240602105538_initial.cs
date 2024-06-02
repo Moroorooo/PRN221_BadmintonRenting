@@ -13,7 +13,8 @@ namespace BadmintonRentingData.Migrations
                 name: "BadmintonField",
                 columns: table => new
                 {
-                    BadmintonFieldID = table.Column<long>(type: "bigint", nullable: false),
+                    BadmintonFieldID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     BadmintonFieldName = table.Column<string>(type: "char(50)", unicode: false, fixedLength: true, maxLength: 50, nullable: false),
                     Address = table.Column<string>(type: "char(255)", unicode: false, fixedLength: true, maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
@@ -30,7 +31,8 @@ namespace BadmintonRentingData.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerName = table.Column<string>(type: "char(50)", unicode: false, fixedLength: true, maxLength: 50, nullable: false),
                     Phone = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "char(50)", unicode: false, fixedLength: true, maxLength: 50, nullable: false),
@@ -45,12 +47,13 @@ namespace BadmintonRentingData.Migrations
                 name: "Schedule",
                 columns: table => new
                 {
-                    ScheduleId = table.Column<long>(type: "bigint", nullable: false),
+                    ScheduleId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ScheduleName = table.Column<string>(type: "char(50)", unicode: false, fixedLength: true, maxLength: 50, nullable: false),
-                    StartTimeFrame = table.Column<TimeSpan>(type: "time", nullable: false),
-                    EndTimeFrame = table.Column<TimeSpan>(type: "time", nullable: false),
+                    StartTimeFrame = table.Column<DateTime>(type: "date", nullable: false),
+                    EndTimeFrame = table.Column<DateTime>(type: "date", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    TotalHours = table.Column<TimeSpan>(type: "time", nullable: false)
+                    TotalHours = table.Column<DateTime>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,7 +64,8 @@ namespace BadmintonRentingData.Migrations
                 name: "Booking",
                 columns: table => new
                 {
-                    BookingId = table.Column<long>(type: "bigint", nullable: false),
+                    BookingId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedAt = table.Column<DateTime>(type: "date", nullable: false),
                     TotalPrice = table.Column<double>(type: "float", nullable: false),
                     BookingType = table.Column<string>(type: "char(55)", unicode: false, fixedLength: true, maxLength: 55, nullable: false),
@@ -84,7 +88,8 @@ namespace BadmintonRentingData.Migrations
                 name: "Booking_BadmintonField_Schedule",
                 columns: table => new
                 {
-                    OrderBadmintonFieldScheduleID = table.Column<long>(type: "bigint", nullable: false),
+                    OrderBadmintonFieldScheduleID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
                     EndDate = table.Column<DateTime>(type: "date", nullable: false),
                     BookingId = table.Column<long>(type: "bigint", nullable: false),
@@ -93,9 +98,9 @@ namespace BadmintonRentingData.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Booking___750D09A512DD8A23", x => x.OrderBadmintonFieldScheduleID);
+                    table.PrimaryKey("PK__Booking___750D09A5A8EEFC40", x => x.OrderBadmintonFieldScheduleID);
                     table.ForeignKey(
-                        name: "FK__Booking_B__Badmi__403A8C7D",
+                        name: "FK__Booking_B__Badmi__412EB0B6",
                         column: x => x.BadmintonField,
                         principalTable: "BadmintonField",
                         principalColumn: "BadmintonFieldID");

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BadmintonRentingData.Migrations
 {
     [DbContext(typeof(Net1702_PRN221_BadmintonRentingContext))]
-    [Migration("20240530083326_initial")]
+    [Migration("20240602105538_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,11 @@ namespace BadmintonRentingData.Migrations
             modelBuilder.Entity("BadmintonRentingData.Model.BadmintonField", b =>
                 {
                     b.Property<long>("BadmintonFieldId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("BadmintonFieldID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("BadmintonFieldId"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -69,7 +72,10 @@ namespace BadmintonRentingData.Migrations
             modelBuilder.Entity("BadmintonRentingData.Model.Booking", b =>
                 {
                     b.Property<long>("BookingId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("BookingId"), 1L, 1);
 
                     b.Property<string>("BookingType")
                         .IsRequired()
@@ -114,8 +120,11 @@ namespace BadmintonRentingData.Migrations
             modelBuilder.Entity("BadmintonRentingData.Model.BookingBadmintonFieldSchedule", b =>
                 {
                     b.Property<long>("OrderBadmintonFieldScheduleId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("OrderBadmintonFieldScheduleID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("OrderBadmintonFieldScheduleId"), 1L, 1);
 
                     b.Property<long>("BadmintonField")
                         .HasColumnType("bigint");
@@ -133,7 +142,7 @@ namespace BadmintonRentingData.Migrations
                         .HasColumnType("date");
 
                     b.HasKey("OrderBadmintonFieldScheduleId")
-                        .HasName("PK__Booking___750D09A512DD8A23");
+                        .HasName("PK__Booking___750D09A5A8EEFC40");
 
                     b.HasIndex("BadmintonField");
 
@@ -147,7 +156,10 @@ namespace BadmintonRentingData.Migrations
             modelBuilder.Entity("BadmintonRentingData.Model.Customer", b =>
                 {
                     b.Property<long>("CustomerId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("CustomerId"), 1L, 1);
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
@@ -181,10 +193,13 @@ namespace BadmintonRentingData.Migrations
             modelBuilder.Entity("BadmintonRentingData.Model.Schedule", b =>
                 {
                     b.Property<long>("ScheduleId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<TimeSpan>("EndTimeFrame")
-                        .HasColumnType("time");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ScheduleId"), 1L, 1);
+
+                    b.Property<DateTime>("EndTimeFrame")
+                        .HasColumnType("date");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -196,11 +211,11 @@ namespace BadmintonRentingData.Migrations
                         .HasColumnType("char(50)")
                         .IsFixedLength();
 
-                    b.Property<TimeSpan>("StartTimeFrame")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("StartTimeFrame")
+                        .HasColumnType("date");
 
-                    b.Property<TimeSpan>("TotalHours")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("TotalHours")
+                        .HasColumnType("date");
 
                     b.HasKey("ScheduleId");
 
@@ -224,7 +239,7 @@ namespace BadmintonRentingData.Migrations
                         .WithMany("BookingBadmintonFieldSchedules")
                         .HasForeignKey("BadmintonField")
                         .IsRequired()
-                        .HasConstraintName("FK__Booking_B__Badmi__403A8C7D");
+                        .HasConstraintName("FK__Booking_B__Badmi__412EB0B6");
 
                     b.HasOne("BadmintonRentingData.Model.Booking", "Booking")
                         .WithMany("BookingBadmintonFieldSchedules")
