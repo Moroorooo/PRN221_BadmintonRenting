@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace BadmintonRentingData.Model
 {
@@ -20,23 +19,12 @@ namespace BadmintonRentingData.Model
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Schedule> Schedules { get; set; } = null!;
 
-        public string GetConnectionString()
-        {
-            string connectionString = null;
-            IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(@"appsettings.json", true, true)
-                .Build();
-            connectionString = config["ConnectionString:DefaultConnection"];
-            return connectionString;
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer(GetConnectionString());
-                optionsBuilder.UseSqlServer("server=(local);database=Net1702_PRN221_BadmintonBooking;uid=sa;password=12345;TrustServerCertificate=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=123456789;database=Net1702_PRN221_BadmintonRenting;TrustServerCertificate=True");
             }
         }
 
@@ -45,10 +33,10 @@ namespace BadmintonRentingData.Model
             modelBuilder.Entity<BadmintonField>(entity =>
             {
                 entity.ToTable("BadmintonField");
-
                 entity.Property(e => e.BadmintonFieldId)
                     .ValueGeneratedOnAdd()
                     .HasColumnName("BadmintonFieldID");
+                entity.Property(e => e.BadmintonFieldId).HasColumnName("BadmintonFieldID");
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(255)
@@ -73,8 +61,6 @@ namespace BadmintonRentingData.Model
             modelBuilder.Entity<Booking>(entity =>
             {
                 entity.ToTable("Booking");
-
-                entity.Property(e => e.BookingId).ValueGeneratedNever();
 
                 entity.Property(e => e.BookingType)
                     .HasMaxLength(55)
@@ -103,13 +89,11 @@ namespace BadmintonRentingData.Model
             modelBuilder.Entity<BookingBadmintonFieldSchedule>(entity =>
             {
                 entity.HasKey(e => e.OrderBadmintonFieldScheduleId)
-                    .HasName("PK__Booking___750D09A512DD8A23");
+                    .HasName("PK__Booking___750D09A5A8EEFC40");
 
                 entity.ToTable("Booking_BadmintonField_Schedule");
 
-                entity.Property(e => e.OrderBadmintonFieldScheduleId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("OrderBadmintonFieldScheduleID");
+                entity.Property(e => e.OrderBadmintonFieldScheduleId).HasColumnName("OrderBadmintonFieldScheduleID");
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
@@ -119,7 +103,7 @@ namespace BadmintonRentingData.Model
                     .WithMany(p => p.BookingBadmintonFieldSchedules)
                     .HasForeignKey(d => d.BadmintonField)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Booking_B__Badmi__403A8C7D");
+                    .HasConstraintName("FK__Booking_B__Badmi__412EB0B6");
 
                 entity.HasOne(d => d.Booking)
                     .WithMany(p => p.BookingBadmintonFieldSchedules)
@@ -136,8 +120,6 @@ namespace BadmintonRentingData.Model
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.Property(e => e.CustomerId).ValueGeneratedNever();
-
                 entity.Property(e => e.CustomerName)
                     .HasMaxLength(50)
                     .IsUnicode(false)
@@ -158,12 +140,16 @@ namespace BadmintonRentingData.Model
             {
                 entity.ToTable("Schedule");
 
-                entity.Property(e => e.ScheduleId).ValueGeneratedNever();
+                entity.Property(e => e.EndTimeFrame).HasColumnType("date");
 
                 entity.Property(e => e.ScheduleName)
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .IsFixedLength();
+
+                entity.Property(e => e.StartTimeFrame).HasColumnType("date");
+
+                entity.Property(e => e.TotalHours).HasColumnType("date");
             });
 
             OnModelCreatingPartial(modelBuilder);

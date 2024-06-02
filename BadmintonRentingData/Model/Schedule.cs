@@ -12,10 +12,10 @@ namespace BadmintonRentingData.Model
 
         public long ScheduleId { get; set; }
         public string ScheduleName { get; set; } = null!;
-        public TimeSpan StartTimeFrame { get; set; }
-        public TimeSpan EndTimeFrame { get; set; }
+        public DateTime StartTimeFrame { get; set; }
+        public DateTime EndTimeFrame { get; set; }
         public double Price { get; set; }
-        public TimeSpan TotalHours { get; set; }
+        public DateTime TotalHours { get; set; }
 
         public virtual ICollection<BookingBadmintonFieldSchedule> BookingBadmintonFieldSchedules { get; set; }
     }
