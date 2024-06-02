@@ -47,7 +47,7 @@ namespace BadmintonRentingData.Model
                 entity.ToTable("BadmintonField");
 
                 entity.Property(e => e.BadmintonFieldId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("BadmintonFieldID");
 
                 entity.Property(e => e.Address)

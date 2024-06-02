@@ -1,15 +1,11 @@
 ﻿using BadmintonRentingData.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BadmintonRentingData
 {
     public class UnitOfWork
     {
         private BookingBadmintonFieldScheduleRepository _bookingBadmintonFieldSchedule;
+        private BadmintonFieldReposiory _BadmintonFieldReposiory;
 
         public UnitOfWork() { }
 
@@ -18,6 +14,13 @@ namespace BadmintonRentingData
             get
             {
                 return _bookingBadmintonFieldSchedule = new BookingBadmintonFieldScheduleRepository();
+            }
+        }
+        public BadmintonFieldReposiory BadmintonFieldReposiory
+        {
+            get
+            {
+                return _BadmintonFieldReposiory = new BadmintonFieldReposiory();
             }
         }
     }
