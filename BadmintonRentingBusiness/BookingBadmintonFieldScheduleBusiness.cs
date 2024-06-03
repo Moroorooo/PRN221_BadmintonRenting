@@ -14,10 +14,10 @@ namespace BadmintonRentingBusiness
     public interface IBookingBadmintonFieldScheduleBusiness
     {
         Task<IBusinessResult> GetAll();
-        Task<IBusinessResult> GetById(int id);
+        Task<IBusinessResult> GetById(long id);
         Task<IBusinessResult> Create(BookingBadmintonFieldSchedule entity);
         Task<IBusinessResult> Update(BookingBadmintonFieldSchedule entity);
-        Task<IBusinessResult> DeleteById(int id);
+        Task<IBusinessResult> DeleteById(long id);
         //Task<IBusinessResult> ConvertToDTO(BookingBadmintonFieldSchedule entity);
     }
 
@@ -50,7 +50,7 @@ namespace BadmintonRentingBusiness
             }
         }
 
-        public async Task<IBusinessResult> GetById(int id)
+        public async Task<IBusinessResult> GetById(long id)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace BadmintonRentingBusiness
             }
         }
 
-        public async Task<IBusinessResult> DeleteById(int id)
+        public async Task<IBusinessResult> DeleteById(long id)
         {
             try
             {

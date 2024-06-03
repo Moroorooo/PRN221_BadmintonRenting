@@ -1,14 +1,14 @@
 ﻿@page
-@model BadmintonRentingRazorWebApp.Pages.FieldScheduleIndexModel
+@model BadmintonRentingRazorWebApp.Pages.FieldScheduleView.IndexModel
 
 @{
-    ViewData["Title"] = "FieldScheduleIndex";
+    ViewData["Title"] = "Index";
 }
 
-<h1>FieldScheduleIndex</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-page="FieldScheduleCreate">Create New</a>
+    <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -20,13 +20,13 @@
                 @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BookingId)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonFieldNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonFieldName)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].Booking)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].ScheduleName)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].Schedule)
             </th>
             <th></th>
         </tr>
@@ -41,13 +41,13 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BookingId)
+                @Html.DisplayFor(modelItem => item.BadmintonFieldNavigation.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BadmintonFieldName)
+                @Html.DisplayFor(modelItem => item.Booking.BookingType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ScheduleName)
+                @Html.DisplayFor(modelItem => item.Schedule.ScheduleName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.OrderBadmintonFieldScheduleId">Edit</a> |
