@@ -15,10 +15,12 @@ namespace BadmintonRentingData
 
 
         private CustomerRepository _customerRepository;
+        private BookingRepository _bookingRepository;
         public UnitOfWork()
         {
             _bookingBadmintonFieldSchedule ??= new BookingBadmintonFieldScheduleRepository();
             _customerRepository ??= new CustomerRepository();
+            _bookingRepository ??= new BookingRepository();
         }
 
         public BookingBadmintonFieldScheduleRepository BookingBadmintonFieldScheduleRepository
@@ -41,6 +43,14 @@ namespace BadmintonRentingData
             get
             {
                 return _BadmintonFieldReposiory = new BadmintonFieldReposiory();
+            }
+        }
+        public BookingRepository BookingRepository
+        {
+            get
+            {
+                //return _booking ??= new Repository.BookingRepository();
+                return _bookingRepository ??= new BookingRepository(_context);
             }
         }
     }
