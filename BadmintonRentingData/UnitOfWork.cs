@@ -1,20 +1,21 @@
-﻿using BadmintonRentingData.Model;
+
+using BadmintonRentingData.Model;
 using BadmintonRentingData.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BadmintonRentingData
 {
     public class UnitOfWork
     {
         private BookingBadmintonFieldScheduleRepository _bookingBadmintonFieldSchedule;
+
+        private BadmintonFieldReposiory _BadmintonFieldReposiory;
+
         private Net1702_PRN221_BadmintonRentingContext _context;
 
+
         private CustomerRepository _customerRepository;
-        public UnitOfWork() 
+        public UnitOfWork()
         {
             _bookingBadmintonFieldSchedule ??= new BookingBadmintonFieldScheduleRepository();
             _customerRepository ??= new CustomerRepository();
@@ -33,6 +34,13 @@ namespace BadmintonRentingData
             get
             {
                 return _customerRepository ??= new CustomerRepository(_context);
+            }
+        }
+        public BadmintonFieldReposiory BadmintonFieldReposiory
+        {
+            get
+            {
+                return _BadmintonFieldReposiory = new BadmintonFieldReposiory();
             }
         }
     }

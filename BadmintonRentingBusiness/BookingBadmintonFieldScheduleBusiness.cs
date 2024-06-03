@@ -75,7 +75,7 @@ namespace BadmintonRentingBusiness
             try
             {
                 var result = await _unitOfWork.BookingBadmintonFieldScheduleRepository.CreateAsync(entity);
-                if (result >0)
+                if (result > 0)
                 {
                     return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
                 }

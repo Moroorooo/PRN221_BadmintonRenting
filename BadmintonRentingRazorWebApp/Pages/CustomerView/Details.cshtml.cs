@@ -7,38 +7,41 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
 using BadmintonRentingBusiness;
+using BadmintonRentingCommon;
 
 namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class DetailsModel : PageModel
     {
-        private readonly BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext _context;
 
-        private readonly ICustomerBusiness customerBusiness;
+        private readonly ICustomerBusiness _customerBusiness;
 
-        public DetailsModel(BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext context)
+        public DetailsModel(ICustomerBusiness customerBusiness)
         {
-            _context = context;
+            _customerBusiness = customerBusiness;
         }
 
-      public Customer Customer { get; set; } = default!; 
+      public Customer Customer { get; set; } = default!;
+      public string ErrorMessage { get; set; } = string.Empty;
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(long id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            var customer = await customerBusiness.GetById(id);
-            if (customer == null)
+            var result = await _customerBusiness.GetById(id);
+            if (result.Status == Const.SUCCESS_READ_CODE && result.Data is Customer customer)
             {
+                Customer = customer;
+            }
+            else
+            {
+                ErrorMessage = result.Message ?? "Customer not found.";
                 return NotFound();
             }
-            else 
-            {
-                Customer = (Customer)customer;
-            }
+
             return Page();
         }
     }
