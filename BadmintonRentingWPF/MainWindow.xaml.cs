@@ -1,4 +1,6 @@
-﻿using BadmintonRentingWPF.UI;
+﻿using BadmintonRentingBusiness;
+using BadmintonRentingData;
+using BadmintonRentingWPF.UI;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +26,9 @@ namespace BadmintonRentingWPF
 
         private async void Open_wCustomer_Click(object sender, RoutedEventArgs e)
         {
-            var p = new wCustomer();
+            var unitOfWork = new UnitOfWork();
+            ICustomerBusiness customerBusiness = new CustomerBusiness(unitOfWork);
+            var p = new wCustomer(customerBusiness);
             p.Owner = this;
             p.Show();
         }

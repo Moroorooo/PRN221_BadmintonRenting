@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BadmintonRentingWPF.UI"
         mc:Ignorable="d"
-        Title="wCustomer" Height="450" Width="1450">
-    <!--<Grid>
+        Title="wCustomer" Height="450" Width="1450"
+        Loaded="Window_Loaded">
+    
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="0*"/>
@@ -65,5 +67,5 @@
                 </DataGrid>
             </StackPanel>
         </StackPanel>
-    </Grid>-->
+    </Grid>
 </Window>
