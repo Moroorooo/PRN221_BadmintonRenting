@@ -1,4 +1,5 @@
 ﻿using BadmintonRentingBusiness;
+using BadmintonRentingData.DTO;
 using BadmintonRentingData.Model;
 using System;
 using System.Collections.Generic;
@@ -40,16 +41,69 @@ namespace BadmintonRentingWPF.UI
         }
         private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (grdCustomer.SelectedItem is Customer selectedCustomer)
+            {
+                txtCustomerId.Text = selectedCustomer.CustomerId.ToString();
+                txtCustomerName.Text = selectedCustomer.CustomerName;
+                txtPhone.Text = selectedCustomer.Phone.ToString();
+                txtEmail.Text = selectedCustomer.Email;
+                txtIsStatus.Text = selectedCustomer.IsStatus;
+            }
         }
-        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        private async void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                long customerId = long.Parse(txtCustomerId.Text);
 
+                var existcustomer = await customerBusiness.GetById(customerId);
+                var newCustomer = existcustomer.Data as Customer; //Doi tu kieu BusinessResult thanh Customer
+                if (newCustomer == null)                  
+                {                   
+                    var customerDTO = new CustomerRequestDTO
+                    {
+                        CustomerName = txtCustomerName.Text,
+                        Phone = int.Parse(txtPhone.Text),
+                        Email = txtEmail.Text,
+                        IsStatus = txtIsStatus.Text
+                    };
+
+                    var result = await customerBusiness.Create(customerDTO);
+                    MessageBox.Show(result.Message, "Save");
+                }
+                else
+                {
+                    var customerDTO = new CustomerRequestDTO
+                    {
+                        CustomerName = txtCustomerName.Text,
+                        Phone = int.Parse(txtPhone.Text),
+                        Email = txtEmail.Text,
+                        IsStatus = txtIsStatus.Text
+                    };
+                    
+                    var result = await customerBusiness.Update(customerId, customerDTO);
+                    MessageBox.Show(result.Message, "Update");
+                }
+
+                txtCustomerName.Text = string.Empty;
+                txtPhone.Text = string.Empty;
+                txtEmail.Text = string.Empty;
+                txtIsStatus.Text = string.Empty;
+                await this.LoadGrdCustomer();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            txtCustomerId.Text = string.Empty;
+            txtCustomerName.Text = string.Empty;
+            txtPhone.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtIsStatus.Text = string.Empty;
         }
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
