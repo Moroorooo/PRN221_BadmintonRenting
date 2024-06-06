@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BadmintonRentingWPF.UI"
         mc:Ignorable="d"
         Title="wCustomer" Height="450" Width="1450">
-    <Grid>
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="0*"/>
@@ -65,5 +65,5 @@
                 </DataGrid>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </Grid>-->
 </Window>
