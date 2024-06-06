@@ -37,9 +37,25 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
                 return NotFound();
             }
             BookingBadmintonFieldSchedule = (BookingBadmintonFieldSchedule)bookingbadmintonfieldschedule.Data;
-           //ViewData["BadmintonField"] = new SelectList(_context.BadmintonFields, "BadmintonFieldId", "Address");
-           //ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingType");
-           //ViewData["ScheduleId"] = new SelectList(_context.Schedules, "ScheduleId", "ScheduleName");
+
+            var badmintonFieldResult = await _business.GetAllBadmintonField();
+            if (badmintonFieldResult.Message != Const.FAIL_READ_MSG)
+            {
+                ViewData["BadmintonField"] = new SelectList((List<BadmintonField>)badmintonFieldResult.Data, "BadmintonFieldId", "BadmintonFieldName");
+            }
+
+            //var bookingResult = await _business.GetAllBooking();
+            //if (bookingResult.Message != Const.FAIL_READ_MSG)
+            //{
+            //    ViewData["Booking"] = new SelectList((List<Booking>)bookingResult.Data, "BookingId", "BookingId");
+            //}
+
+            //var scheduleResult = await _business.GetAllSchedule();
+            //if (scheduleResult.Message != Const.FAIL_READ_MSG)
+            //{
+            //    ViewData["Schedule"] = new SelectList((List<Schedule>)scheduleResult.Data, "ScheduleId", "ScheduleName");
+
+            //}
             return Page();
         }
 

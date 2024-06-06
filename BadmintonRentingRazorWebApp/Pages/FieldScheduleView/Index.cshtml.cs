@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
 using BadmintonRentingBusiness;
+using BadmintonRentingCommon;
 
 namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
 {
@@ -26,7 +27,7 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
             if (_business != null)
             {
                 var result = await _business.GetAll();
-                if (result != null)
+                if (result.Message != Const.FAIL_READ_MSG) 
                 {
                     BookingBadmintonFieldSchedule = (List<BookingBadmintonFieldSchedule>)result.Data;
                 }
