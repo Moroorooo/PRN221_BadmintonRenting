@@ -30,26 +30,34 @@ namespace BadmintonRentingWPF.UI
             Loaded += Window_Loaded;
         }
 
-        private void grdCustomer_ButtonDelete_Click(object sender, RoutedEventArgs e)
+        private async void grdCustomer_ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            Button btn =(Button)sender;
+            long customerId = long.Parse(btn.CommandParameter.ToString());
+            await customerBusiness.DeleteById(customerId);
+            await LoadGrdCustomer();
         }
 
         private void grdCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
-        }
-        private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (grdCustomer.SelectedItem is Customer selectedCustomer)
+            DataGrid grd = sender as DataGrid;
+            if (grd != null && grd.SelectedItems != null && grd.SelectedItems.Count == 1)
             {
-                txtCustomerId.Text = selectedCustomer.CustomerId.ToString();
-                txtCustomerName.Text = selectedCustomer.CustomerName;
-                txtPhone.Text = selectedCustomer.Phone.ToString();
-                txtEmail.Text = selectedCustomer.Email;
-                txtIsStatus.Text = selectedCustomer.IsStatus;
+                var row = grd.ItemContainerGenerator.ContainerFromItem(grd.SelectedItem) as DataGridRow;
+                if (row != null)
+                {
+                    if (grdCustomer.SelectedItem is Customer selectedCustomer)
+                    {
+                        txtCustomerId.Text = selectedCustomer.CustomerId.ToString();
+                        txtCustomerName.Text = selectedCustomer.CustomerName;
+                        txtPhone.Text = selectedCustomer.Phone.ToString();
+                        txtEmail.Text = selectedCustomer.Email;
+                        txtIsStatus.Text = selectedCustomer.IsStatus;
+                    }
+                }
             }
         }
+        
         private async void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             try

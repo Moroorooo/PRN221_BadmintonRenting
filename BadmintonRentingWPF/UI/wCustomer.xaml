@@ -49,7 +49,7 @@
                 <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/>
             </StackPanel>
             <StackPanel Height="210">
-                <DataGrid x:Name="grdCustomer" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdCustomer_MouseDoubleClick" SelectionMode="Single" SelectionUnit="FullRow" SelectionChanged="grdCustomer_SelectionChanged">
+                <DataGrid x:Name="grdCustomer" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdCustomer_MouseDoubleClick" SelectionMode="Single" SelectionUnit="FullRow">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="CustomerId" Binding="{Binding Path=CustomerId}" Visibility="Visible"/>
                         <DataGridTextColumn Header="CustomerName" Binding="{Binding Path=CustomerName}" Width="300" IsReadOnly="True"/>
