@@ -11,6 +11,11 @@ namespace BadmintonRentingData
 
         private BadmintonFieldReposiory _BadmintonFieldReposiory;
 
+        private ScheduleRepository _scheduleRepository;
+
+        private BookingRepository _bookingRepository;
+
+
         private Net1702_PRN221_BadmintonRentingContext _context;
 
 
@@ -41,6 +46,22 @@ namespace BadmintonRentingData
             get
             {
                 return _BadmintonFieldReposiory = new BadmintonFieldReposiory();
+            }
+        }
+
+        public ScheduleRepository ScheduleRepository
+        {
+            get
+            {
+                return _scheduleRepository ??= new ScheduleRepository(_context);
+            }
+        }
+
+        public BookingRepository BookingRepository
+        {
+            get
+            {
+                return _bookingRepository ??= new BookingRepository(_context);
             }
         }
     }

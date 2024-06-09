@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
 using BadmintonRentingBusiness;
 using BadmintonRentingCommon;
+using BadmintonRentingData.DTO;
 
 namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
 {
@@ -20,7 +21,7 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
             _business = business;
         }
 
-        public IList<BookingBadmintonFieldSchedule> BookingBadmintonFieldSchedule { get;set; } = default!;
+        public IList<FieldScheduleListViewDTO> BookingBadmintonFieldSchedule { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
@@ -29,7 +30,11 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
                 var result = await _business.GetAll();
                 if (result.Message != Const.FAIL_READ_MSG) 
                 {
-                    BookingBadmintonFieldSchedule = (List<BookingBadmintonFieldSchedule>)result.Data;
+                    foreach (var item in (List<BookingBadmintonFieldSchedule>)result.Data)
+                    {
+                        var data = await _business.ConvertToDTO(item);
+                        BookingBadmintonFieldSchedule.Add((FieldScheduleListViewDTO)data.Data);
+                    }
                 }
             }
         }

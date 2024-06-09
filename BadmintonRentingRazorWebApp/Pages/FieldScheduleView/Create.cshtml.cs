@@ -28,18 +28,18 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
                 ViewData["BadmintonField"] = new SelectList((List<BadmintonField>)badmintonFieldResult.Data, "BadmintonFieldId", "BadmintonFieldName");
             }
 
-            //var bookingResult = await _business.GetAllBooking();
-            //if (bookingResult.Message != Const.FAIL_READ_MSG)
-            //{
-            //    ViewData["Booking"] = new SelectList((List<Booking>)bookingResult.Data, "BookingId", "BookingId");
-            //}
+            var bookingResult = await _business.GetAllBooking();
+            if (bookingResult.Message != Const.FAIL_READ_MSG)
+            {
+                ViewData["Booking"] = new SelectList((List<Booking>)bookingResult.Data, "BookingId", "BookingId");
+            }
 
-            //var scheduleResult = await _business.GetAllSchedule();
-            //if (scheduleResult.Message != Const.FAIL_READ_MSG)
-            //{
-            //    ViewData["Schedule"] = new SelectList((List<Schedule>)scheduleResult.Data, "ScheduleId", "ScheduleName");
+            var scheduleResult = await _business.GetAllSchedule();
+            if (scheduleResult.Message != Const.FAIL_READ_MSG)
+            {
+                ViewData["Schedule"] = new SelectList((List<Schedule>)scheduleResult.Data, "ScheduleId", "ScheduleName");
 
-            //}
+            }
 
             return Page();
         }

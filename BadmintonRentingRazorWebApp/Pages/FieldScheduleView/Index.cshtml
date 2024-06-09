@@ -20,13 +20,13 @@
                 @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonFieldNavigation)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonFieldName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].Booking)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BookingId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].Schedule)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].ScheduleName)
             </th>
             <th></th>
         </tr>
@@ -41,13 +41,13 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BadmintonFieldNavigation.Address)
+                @Html.DisplayFor(modelItem => item.BadmintonFieldName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Booking.BookingType)
+                @Html.DisplayFor(modelItem => item.BookingId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Schedule.ScheduleName)
+                @Html.DisplayFor(modelItem => item.ScheduleName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.OrderBadmintonFieldScheduleId">Edit</a> |

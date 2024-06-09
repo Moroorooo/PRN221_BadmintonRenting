@@ -46,9 +46,9 @@
                           MouseDoubleClick="grdFieldSchedule_Mouse_DoubleClick" SelectionMode="Single" SelectionUnit="FullRow">
                     <DataGrid.Columns>
                         <!--<DataGridTextColumn Header="Code" Binding="{Binding Path=Id}" Visibility="Hidden"/>-->
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=BookingBadmintonFieldSchedule.OrderBadmintonFieldScheduleId}" Visibility="Visible"/>
-                        <DataGridTextColumn Header="StartDate" Binding="{Binding Path=BookingBadmintonFieldSchedule.StartDate}" Width="100"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="EndDate" Binding="{Binding Path=BookingBadmintonFieldSchedule.EndDate}" Width="50"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="OrderBadmintonFieldScheduleId" Binding="{Binding Path=BookingBadmintonFieldSchedule.OrderBadmintonFieldScheduleId}" Visibility="Visible"/>
+                        <DataGridTextColumn Header="BadmintonField" Binding="{Binding Path=BookingBadmintonFieldSchedule.StartDate}" Width="100"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="ScheduleId" Binding="{Binding Path=BookingBadmintonFieldSchedule.EndDate}" Width="50"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Active" Binding="{Binding Path=IsActive}" Width="50"  IsReadOnly="True"/>
                         <DataGridTemplateColumn Width="50">
                             <DataGridTemplateColumn.CellTemplate>

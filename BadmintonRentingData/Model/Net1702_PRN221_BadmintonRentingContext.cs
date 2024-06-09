@@ -43,9 +43,7 @@ namespace BadmintonRentingData.Model
             modelBuilder.Entity<BadmintonField>(entity =>
             {
                 entity.ToTable("BadmintonField");
-                entity.Property(e => e.BadmintonFieldId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("BadmintonFieldID");
+
                 entity.Property(e => e.BadmintonFieldId).HasColumnName("BadmintonFieldID");
 
                 entity.Property(e => e.Address)
@@ -62,10 +60,12 @@ namespace BadmintonRentingData.Model
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IsStatus)
+
+                entity.Property(e => e.IsActive)
                     .HasMaxLength(55)
                     .IsUnicode(false)
                     .IsFixedLength();
+
             });
 
             modelBuilder.Entity<Booking>(entity =>
@@ -158,8 +158,6 @@ namespace BadmintonRentingData.Model
                     .IsFixedLength();
 
                 entity.Property(e => e.StartTimeFrame).HasColumnType("date");
-
-                entity.Property(e => e.TotalHours).HasColumnType("date");
             });
 
             OnModelCreatingPartial(modelBuilder);
