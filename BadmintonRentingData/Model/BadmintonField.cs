@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BadmintonRentingData.Model
+﻿namespace BadmintonRentingData.Model
 {
     public partial class BadmintonField
     {
@@ -16,7 +13,8 @@ namespace BadmintonRentingData.Model
         public string? Description { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public bool IsActive { get; set; }
+
+        public Boolean IsActive { get; set; }
 
         public virtual ICollection<BookingBadmintonFieldSchedule> BookingBadmintonFieldSchedules { get; set; }
     }

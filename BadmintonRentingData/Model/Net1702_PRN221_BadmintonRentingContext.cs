@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace BadmintonRentingData.Model
 {
@@ -52,6 +49,13 @@ namespace BadmintonRentingData.Model
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+
+                entity.Property(e => e.IsActive)
+                    .HasMaxLength(55)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
             });
 
             modelBuilder.Entity<Booking>(entity =>
