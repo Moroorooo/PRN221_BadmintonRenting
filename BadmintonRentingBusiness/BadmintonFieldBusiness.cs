@@ -13,32 +13,32 @@ namespace BadmintonRentingBusiness
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IBusinessResult> Create(BadmintonFieldRequestDTO newBadmintonFieldRequestDTO)
-        {
-            try
-            {
-                var newBadmintonField = new BadmintonField
-                {
-                    BadmintonFieldName = newBadmintonFieldRequestDTO.BadmintonFieldName,
-                    Phone = newCustomerDTO.Phone,
-                    Email = newCustomerDTO.Email,
-                    IsStatus = newCustomerDTO.IsStatus
-                };
-                var result = await _unitOfWork.CustomerRepository.CreateAsync(newCustomer);
-                if (result > 0)
-                {
-                    return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
-                }
-                else
-                {
-                    return new BusinessResult(Const.FAIL_CREATE_CODE, Const.FAIL_CREATE_MSG);
-                }
-            }
-            catch (Exception ex)
-            {
-                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
-            }
-        }
+        //public async Task<IBusinessResult> Create(BadmintonFieldRequestDTO newBadmintonFieldRequestDTO)
+        //{
+        //    try
+        //    {
+        //        var newBadmintonField = new BadmintonField
+        //        {
+        //            BadmintonFieldName = newBadmintonFieldRequestDTO.BadmintonFieldName,
+        //            Phone = newCustomerDTO.Phone,
+        //            Email = newCustomerDTO.Email,
+        //            IsStatus = newCustomerDTO.IsStatus
+        //        };
+        //        var result = await _unitOfWork.CustomerRepository.CreateAsync(newCustomer);
+        //        if (result > 0)
+        //        {
+        //            return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
+        //        }
+        //        else
+        //        {
+        //            return new BusinessResult(Const.FAIL_CREATE_CODE, Const.FAIL_CREATE_MSG);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+        //    }
+        //}
 
         public async Task<IBusinessResult> DeleteById(long id)
         {
