@@ -8,7 +8,7 @@ namespace BadmintonRentingBusiness
         Task<IBusinessResult> GetAll();
         Task<IBusinessResult> GetById(long id);
         Task<IBusinessResult> Create(BadmintonFieldRequestDTO newBadmintonField);
-        Task<IBusinessResult> Update(long id, CustomerRequestDTO newBadmintonField);
+        Task<IBusinessResult> Update(long id, BadmintonFieldRequestDTO newBadmintonField);
         Task<IBusinessResult> DeleteById(long id);
     }
 }

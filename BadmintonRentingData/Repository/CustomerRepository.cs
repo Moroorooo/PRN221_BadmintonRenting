@@ -1,11 +1,5 @@
 ﻿using BadmintonRentingData.Base;
 using BadmintonRentingData.Model;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BadmintonRentingData.Repository
 {
@@ -15,5 +9,15 @@ namespace BadmintonRentingData.Repository
         public CustomerRepository() { }
 
         public CustomerRepository(Net1702_PRN221_BadmintonRentingContext context) => _context = context;
+
+        public async Task<int> CreateAsync(BadmintonField newBadmintonField)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> UpdateAsync(BadmintonField badmintonField)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

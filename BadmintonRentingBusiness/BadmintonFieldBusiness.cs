@@ -20,11 +20,13 @@ namespace BadmintonRentingBusiness
                 var newBadmintonField = new BadmintonField
                 {
                     BadmintonFieldName = newBadmintonFieldRequestDTO.BadmintonFieldName,
-                    Phone = newCustomerDTO.Phone,
-                    Email = newCustomerDTO.Email,
-                    IsStatus = newCustomerDTO.IsStatus
+                    Address = newBadmintonFieldRequestDTO.Address,
+                    Description = newBadmintonFieldRequestDTO.Description,
+                    StartTime = newBadmintonFieldRequestDTO.StartTime,
+                    EndTime = newBadmintonFieldRequestDTO.EndTime,
+                    IsActive = newBadmintonFieldRequestDTO.IsActive
                 };
-                var result = await _unitOfWork.CustomerRepository.CreateAsync(newCustomer);
+                var result = await _unitOfWork.BadmintonFieldReposiory.CreateAsync(newBadmintonField);
                 if (result > 0)
                 {
                     return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
@@ -44,11 +46,10 @@ namespace BadmintonRentingBusiness
         {
             try
             {
-                var customer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
-                if (customer != null)
+                var badmintonField = await _unitOfWork.BadmintonFieldReposiory.GetByIdAsync(id);
+                if (badmintonField != null)
                 {
-                    customer.IsStatus = "Banned";
-                    var result = await _unitOfWork.CustomerRepository.UpdateAsync(customer);
+                    var result = await _unitOfWork.BadmintonFieldReposiory.DeleteAsync(badmintonField);
                     if (result > 0)
                     {
                         return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
@@ -73,15 +74,15 @@ namespace BadmintonRentingBusiness
         {
             try
             {
-                var listUser = await _unitOfWork.CustomerRepository.GetAllAsync();
+                var listField = await _unitOfWork.BadmintonFieldReposiory.GetAllAsync();
 
-                if (listUser == null)
+                if (listField == null)
                 {
                     return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA_MSG);
                 }
                 else
                 {
-                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, listUser);
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, listField);
                 }
             }
             catch (Exception ex)
@@ -94,10 +95,10 @@ namespace BadmintonRentingBusiness
         {
             try
             {
-                var customer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
-                if (customer != null)
+                var badmintonField = await _unitOfWork.BadmintonFieldReposiory.GetByIdAsync(id);
+                if (badmintonField != null)
                 {
-                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, customer);
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, badmintonField);
                 }
                 else
                 {
@@ -110,18 +111,20 @@ namespace BadmintonRentingBusiness
             }
         }
 
-        public async Task<IBusinessResult> Update(long id, CustomerRequestDTO newCustomerDTO)
+        public async Task<IBusinessResult> Update(long id, BadmintonFieldRequestDTO newbadmintonFieldRequestDTO)
         {
             try
             {
-                var existingCustomer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
+                var existingField = await _unitOfWork.BadmintonFieldReposiory.GetByIdAsync(id);
 
-                existingCustomer.CustomerName = newCustomerDTO.CustomerName;
-                existingCustomer.Phone = newCustomerDTO.Phone;
-                existingCustomer.Email = newCustomerDTO.Email;
-                existingCustomer.IsStatus = newCustomerDTO.IsStatus;
+                existingField.BadmintonFieldName = newbadmintonFieldRequestDTO.BadmintonFieldName;
+                existingField.Address = newbadmintonFieldRequestDTO.Address;
+                existingField.Description = newbadmintonFieldRequestDTO.Description;
+                existingField.StartTime = newbadmintonFieldRequestDTO.StartTime;
+                existingField.EndTime = newbadmintonFieldRequestDTO.EndTime;
+                existingField.IsActive = newbadmintonFieldRequestDTO.IsActive;
 
-                var result = await _unitOfWork.CustomerRepository.UpdateAsync(existingCustomer);
+                var result = await _unitOfWork.BadmintonFieldReposiory.UpdateAsync(existingField);
                 if (result > 0)
                 {
                     return new BusinessResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG);
