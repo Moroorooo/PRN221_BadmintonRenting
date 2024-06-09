@@ -18,7 +18,7 @@ namespace BadmintonRentingData.Model
         public string? Description { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public Boolean IsStatus { get; set; }
+        public Boolean IsActive { get; set; }
 
         public virtual ICollection<BookingBadmintonFieldSchedule> BookingBadmintonFieldSchedules { get; set; }
     }
