@@ -15,7 +15,7 @@ namespace BadmintonRentingData.Model
         public DateTime StartTimeFrame { get; set; }
         public DateTime EndTimeFrame { get; set; }
         public double Price { get; set; }
-        public DateTime TotalHours { get; set; }
+        public double TotalHours { get; set; }
 
         public virtual ICollection<BookingBadmintonFieldSchedule> BookingBadmintonFieldSchedules { get; set; }
     }

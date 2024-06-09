@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BadmintonRentingData.Model
 {
@@ -24,7 +27,7 @@ namespace BadmintonRentingData.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Net1702_PRN221_BadmintonRenting;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Net1702_PRN221_BadmintonRenting;TrustServerCertificate=True;");
             }
         }
 
@@ -33,9 +36,7 @@ namespace BadmintonRentingData.Model
             modelBuilder.Entity<BadmintonField>(entity =>
             {
                 entity.ToTable("BadmintonField");
-                entity.Property(e => e.BadmintonFieldId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("BadmintonFieldID");
+
                 entity.Property(e => e.BadmintonFieldId).HasColumnName("BadmintonFieldID");
 
                 entity.Property(e => e.Address)
@@ -51,11 +52,6 @@ namespace BadmintonRentingData.Model
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)
                     .IsUnicode(false);
-
-                entity.Property(e => e.IsStatus)
-                    .HasMaxLength(55)
-                    .IsUnicode(false)
-                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Booking>(entity =>
@@ -148,8 +144,6 @@ namespace BadmintonRentingData.Model
                     .IsFixedLength();
 
                 entity.Property(e => e.StartTimeFrame).HasColumnType("date");
-
-                entity.Property(e => e.TotalHours).HasColumnType("date");
             });
 
             OnModelCreatingPartial(modelBuilder);
