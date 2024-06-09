@@ -1,0 +1,60 @@
+﻿@page
+@model BadmintonRentingRazorWebApp.Pages.ScheduleView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Schedule[0].ScheduleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Schedule[0].StartTimeFrame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Schedule[0].EndTimeFrame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Schedule[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Schedule[0].TotalHours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Schedule) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTimeFrame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTimeFrame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalHours)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ScheduleId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ScheduleId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ScheduleId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
