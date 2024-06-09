@@ -1,0 +1,76 @@
+﻿<Window x:Class="BadmintonRentingWPF.UI.wSchedule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BadmintonRentingWPF.UI"
+        mc:Ignorable="d"
+        Title="wSchedule" Height="450" Width="1700"
+        Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical">
+            <GroupBox Header="Schedule Form" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="ScheduleId"/>
+                    <TextBox Grid.Column="1" x:Name="txtScheduleId" Text="{Binding Path=Schedule.ScheduleId, Mode=TwoWay}" Margin="5"/>
+                    <Label Grid.Column="2" Content="ScheduleName"/>
+                    <TextBox Grid.Column="3" x:Name="txtScheduleName" Text="{Binding Path=Schedule.ScheduleName, Mode=TwoWay}" Margin="5"/>
+                    <Label Grid.Column="4" Content="StartTimeFrame"/>
+                    <TextBox Grid.Column="5" x:Name="txtStartTimeFrame" Text="{Binding Path=Schedule.StartTimeFrame, Mode=TwoWay}" Margin="5"/>
+                    <Label Grid.Column="6" Content="EndTimeFrame"/>
+                    <TextBox Grid.Column="7" x:Name="txtEndTimeFrame" Text="{Binding Path=Schedule.EndTimeFrame, Mode=TwoWay}" Margin="5"/>
+                    <Label Grid.Column="8" Content="Price"/>
+                    <TextBox Grid.Column="9" x:Name="txtPrice" Text="{Binding Path=Schedule.Price, Mode=TwoWay}" Margin="5"/>
+                    <Label Grid.Column="10" Content="TotalHours"/>
+                    <TextBox Grid.Column="11" x:Name="txtTotalHours" Text="{Binding Path=Schedule.TotalHours, Mode=TwoWay}" Margin="5"/>
+                </Grid>
+            </GroupBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="ButtonSave" Content="Save" Height="30" Width="80" Click="ButtonSave_Click"/>
+                <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/>
+            </StackPanel>
+            <StackPanel Height="210">
+                <DataGrid x:Name="grdSchedule" AutoGenerateColumns="False" ItemsSource="{Binding Schedule}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdSchedule_MouseDoubleClick" SelectionMode="Single" SelectionUnit="FullRow">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=ScheduleId}" Visibility="Visible"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=ScheduleName}" Width="300" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Start Time" Binding="{Binding Path=StartTimeFrame}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="End Time" Binding="{Binding Path=EndTimeFrame}" Width="300" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Path=Price}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Total Hours" Binding="{Binding Path=TotalHours}" Width="100" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Width="50">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="X" x:Name="ButtonDelete" CommandParameter="{Binding Path=ScheduleId}" Click="grdSchedule_ButtonDelete_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
