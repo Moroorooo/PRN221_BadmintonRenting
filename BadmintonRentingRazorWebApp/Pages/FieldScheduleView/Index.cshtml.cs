@@ -27,14 +27,10 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
         {
             if (_business != null)
             {
-                var result = await _business.GetAll();
+                var result = await _business.GetAllForIndex();
                 if (result.Message != Const.FAIL_READ_MSG) 
                 {
-                    foreach (var item in (List<BookingBadmintonFieldSchedule>)result.Data)
-                    {
-                        var data = await _business.ConvertToDTO(item);
-                        BookingBadmintonFieldSchedule.Add((FieldScheduleListViewDTO)data.Data);
-                    }
+                    BookingBadmintonFieldSchedule = (List<FieldScheduleListViewDTO>) result.Data;
                 }
             }
         }

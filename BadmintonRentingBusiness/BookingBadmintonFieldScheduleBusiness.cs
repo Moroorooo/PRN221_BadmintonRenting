@@ -23,6 +23,7 @@ namespace BadmintonRentingBusiness
         Task<IBusinessResult> GetAllBooking();
         Task<IBusinessResult> GetAllSchedule();
         Task<IBusinessResult> ConvertToDTO(BookingBadmintonFieldSchedule entity);
+        Task<IBusinessResult> GetAllForIndex();
     }
 
     public class BookingBadmintonFieldScheduleBusiness : IBookingBadmintonFieldScheduleBusiness
@@ -222,12 +223,15 @@ namespace BadmintonRentingBusiness
             }
         }
 
+
+
         public async Task<IBusinessResult> ConvertToDTO(BookingBadmintonFieldSchedule entity)
         {
             try
             {
-                var BadmintonField = await _unitOfWork.BadmintonFieldReposiory.GetByIdAsync(entity.BadmintonField);
-                var Schedule = await _unitOfWork.ScheduleRepository.GetByIdAsync(entity.ScheduleId);
+                var BadmintonFieldId = entity.BadmintonField;
+                BadmintonField BadmintonField = await _unitOfWork.BadmintonFieldReposiory.GetByIdAsync(BadmintonFieldId);
+                Schedule Schedule = await _unitOfWork.ScheduleRepository.GetByIdAsync(entity.ScheduleId);
                 var dto = new FieldScheduleListViewDTO()
                 {
                     OrderBadmintonFieldScheduleId = entity.OrderBadmintonFieldScheduleId,
@@ -239,6 +243,26 @@ namespace BadmintonRentingBusiness
                 };
 
                 return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, dto);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllForIndex()
+        {
+            try
+            {
+                var list = await _unitOfWork.BookingBadmintonFieldScheduleRepository.GetAllAsync();
+                var listdto = new List<FieldScheduleListViewDTO>();
+                foreach (var item in list)
+                {
+                    var dto = await ConvertToDTO(item);
+                    listdto.Add((FieldScheduleListViewDTO)dto.Data);
+                }
+
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, listdto);
             }
             catch (Exception ex)
             {
