@@ -30,7 +30,7 @@ namespace BadmintonRentingBusiness
                 var newBooking = new Booking
                 {
                     BookingId = newBookingDTO.BookingId,
-                    CreatedAt = newBookingDTO.CreatAt,
+                    CreatedAt = newBookingDTO.CreatedAt,
                     TotalPrice = newBookingDTO.TotalPrice,
                     BookingType = newBookingDTO.BookingType,
                     CheckInStatus = newBookingDTO.CheckInStatus,
@@ -134,7 +134,7 @@ namespace BadmintonRentingBusiness
                 var existingBooking = await _unitOfWork.BookingRepository.GetByIdAsync(id);
 
                 existingBooking.BookingId = newBookingDTO.BookingId;
-                existingBooking.CreatedAt = newBookingDTO.CreatAt;
+                existingBooking.CreatedAt = newBookingDTO.CreatedAt;
                 existingBooking.TotalPrice = newBookingDTO.TotalPrice;
                 existingBooking.BookingType = newBookingDTO.BookingType;
                 existingBooking.CheckInStatus = newBookingDTO.CheckInStatus;

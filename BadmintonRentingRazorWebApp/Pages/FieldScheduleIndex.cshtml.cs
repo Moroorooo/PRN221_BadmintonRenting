@@ -17,33 +17,6 @@ namespace BadmintonRentingRazorWebApp.Pages
     {
         private readonly IBookingBadmintonFieldScheduleBusiness _business;
 
-        public FieldScheduleIndexModel(IBookingBadmintonFieldScheduleBusiness business)
-        {
-            _business = business;
-        }
-
-        public IList<FieldScheduleListViewDTO> BookingBadmintonFieldSchedule { get;set; } = default!;
-
-        public async Task OnGetAsync()
-        {
-            if (_business != null)
-            {
-                var result = await _business.GetAll();
-                var data = (IList<BookingBadmintonFieldSchedule>)result.Data;
-                foreach (var entity in data)
-                {
-                    var dto = new FieldScheduleListViewDTO()
-                    {
-                        OrderBadmintonFieldScheduleId = entity.OrderBadmintonFieldScheduleId,
-                        BookingId = entity.BookingId,
-                        StartDate = entity.StartDate,
-                        EndDate = entity.EndDate,
-                        BadmintonFieldName = null,
-                        ScheduleName = null
-                    };
-                    BookingBadmintonFieldSchedule.Add(dto);
-                }
-            }
-        }
+       
     }
 }

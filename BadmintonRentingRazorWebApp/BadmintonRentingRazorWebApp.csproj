@@ -21,4 +21,8 @@
     <ProjectReference Include="..\BadmintonRentingData\BadmintonRentingData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Booking\" />
+  </ItemGroup>
+
 </Project>
