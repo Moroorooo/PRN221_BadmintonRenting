@@ -71,7 +71,7 @@ namespace BadmintonRentingData.Base
             return true;
         }
 
-        public T GetById(int id)
+        public T GetById(long id)
         {
             return _dbSet.Find(id);
         }

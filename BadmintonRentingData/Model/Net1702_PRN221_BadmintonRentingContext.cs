@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace BadmintonRentingData.Model
 {
@@ -18,13 +19,22 @@ namespace BadmintonRentingData.Model
         public virtual DbSet<BookingBadmintonFieldSchedule> BookingBadmintonFieldSchedules { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Schedule> Schedules { get; set; } = null!;
-
+        
+        public string GetConnectionString()
+        {
+            string connectionString = null;
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(@"appsettings.json", true, true)
+                .Build();
+            connectionString = config["ConnectionStrings:DefaultConnection"];
+            return connectionString;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Net1702_PRN221_BadmintonRenting;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer(GetConnectionString());
             }
         }
 
