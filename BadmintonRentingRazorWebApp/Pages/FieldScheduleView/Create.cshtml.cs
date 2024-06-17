@@ -51,7 +51,7 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _business == null || BookingBadmintonFieldSchedule == null)
+          if (_business == null || BookingBadmintonFieldSchedule == null)
             {
                 return Page();
             }
