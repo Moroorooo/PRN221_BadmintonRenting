@@ -19,17 +19,54 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
         {
             _customerBusiness = customerBusiness;
         }
+        [BindProperty(SupportsGet = true)]
+        public string SearchName { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SearchEmail { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SearchPhone { get; set; }
 
         public IList<Customer> Customer { get; set; } = new List<Customer>();
 
         public async Task OnGetAsync()
         {
-            var result = await _customerBusiness.GetAll();
-            if (result.Status == Const.SUCCESS_READ_CODE)
+            if (!string.IsNullOrEmpty(SearchName) || !string.IsNullOrEmpty(SearchEmail) || !string.IsNullOrEmpty(SearchPhone))
             {
-                Customer = (List<Customer>)result.Data;
+                var result = await _customerBusiness.SearchByNameByEmailByPhone(SearchName, SearchEmail, ParsePhone(SearchPhone));
+                if (result.Status == Const.SUCCESS_READ_CODE)
+                {
+                    Customer = (List<Customer>)result.Data;
+                }
+                else
+                {
+                    Customer = new List<Customer>(); // Handle if search fails
+                }
             }
-            
+            else
+            {
+                var result = await _customerBusiness.GetAll();
+                if (result.Status == Const.SUCCESS_READ_CODE)
+                {
+                    Customer = (List<Customer>)result.Data;
+                }
+                else
+                {
+                    Customer = new List<Customer>(); // Handle if GetAll fails
+                }
+            }
         }
+
+        private int? ParsePhone(string phoneStr)
+        {
+            if (int.TryParse(phoneStr, out int phone))
+            {
+                return phone;
+            }
+            return null;
+        }
+
     }
+    
 }

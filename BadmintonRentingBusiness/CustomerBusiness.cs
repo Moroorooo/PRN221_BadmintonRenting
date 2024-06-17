@@ -3,11 +3,14 @@ using BadmintonRentingCommon;
 using BadmintonRentingData;
 using BadmintonRentingData.DTO;
 using BadmintonRentingData.Model;
+using BadmintonRentingData.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BadmintonRentingBusiness
 {
@@ -112,6 +115,19 @@ namespace BadmintonRentingBusiness
             catch (Exception ex)
             {
                 return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> SearchByNameByEmailByPhone(string name, string email, int? phone)
+        {
+            try
+            {
+                var customers = await _unitOfWork.CustomerRepository.SearchByNameByEmailByPhone(name, email, phone);
+                return new BusinessResult(Const.SUCCESS_READ_CODE, "Search successful", customers);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, $"An error occurred: {ex.Message}");
             }
         }
 
