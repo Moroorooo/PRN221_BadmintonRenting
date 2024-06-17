@@ -27,10 +27,10 @@ namespace BadmintonRentingBusiness
             {
                 var newCustomer = new Customer
                 {                   
-                    CustomerName = newCustomerDTO.CustomerName,
+                    CustomerName = newCustomerDTO.CustomerName.Trim(),
                     Phone = newCustomerDTO.Phone,
-                    Email = newCustomerDTO.Email,
-                    IsStatus = newCustomerDTO.IsStatus
+                    Email = newCustomerDTO.Email.Trim(),
+                    IsStatus = newCustomerDTO.IsStatus.Trim()
                 };
                 var result = await _unitOfWork.CustomerRepository.CreateAsync(newCustomer);
                 if (result > 0)
@@ -137,10 +137,10 @@ namespace BadmintonRentingBusiness
             {
                 var existingCustomer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
 
-                existingCustomer.CustomerName = newCustomerDTO.CustomerName;
+                existingCustomer.CustomerName = newCustomerDTO.CustomerName.Trim();
                 existingCustomer.Phone = newCustomerDTO.Phone;
-                existingCustomer.Email = newCustomerDTO.Email;
-                existingCustomer.IsStatus = newCustomerDTO.IsStatus;
+                existingCustomer.Email = newCustomerDTO.Email.Trim();
+                existingCustomer.IsStatus = newCustomerDTO.IsStatus.Trim();
                 
                 var result = await _unitOfWork.CustomerRepository.UpdateAsync(existingCustomer);
                 if (result > 0)
