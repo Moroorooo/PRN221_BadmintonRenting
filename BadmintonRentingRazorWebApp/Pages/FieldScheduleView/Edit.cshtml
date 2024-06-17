@@ -1,0 +1,55 @@
+﻿@page
+@model BadmintonRentingRazorWebApp.Pages.FieldScheduleView.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>BookingBadmintonFieldSchedule</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BookingBadmintonFieldSchedule.OrderBadmintonFieldScheduleId" />
+            <div class="form-group">
+                <label asp-for="BookingBadmintonFieldSchedule.StartDate" class="control-label"></label>
+                <input asp-for="BookingBadmintonFieldSchedule.StartDate" class="form-control" />
+                <span asp-validation-for="BookingBadmintonFieldSchedule.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingBadmintonFieldSchedule.EndDate" class="control-label"></label>
+                <input asp-for="BookingBadmintonFieldSchedule.EndDate" class="form-control" />
+                <span asp-validation-for="BookingBadmintonFieldSchedule.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingBadmintonFieldSchedule.BookingId" class="control-label"></label>
+                <select asp-for="BookingBadmintonFieldSchedule.BookingId" class="form-control" asp-items="ViewBag.BookingId"></select>
+                <span asp-validation-for="BookingBadmintonFieldSchedule.BookingId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingBadmintonFieldSchedule.BadmintonField" class="control-label"></label>
+                <select asp-for="BookingBadmintonFieldSchedule.BadmintonField" class="form-control" asp-items="ViewBag.BadmintonField"></select>
+                <span asp-validation-for="BookingBadmintonFieldSchedule.BadmintonField" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingBadmintonFieldSchedule.ScheduleId" class="control-label"></label>
+                <select asp-for="BookingBadmintonFieldSchedule.ScheduleId" class="form-control" asp-items="ViewBag.ScheduleId"></select>
+                <span asp-validation-for="BookingBadmintonFieldSchedule.ScheduleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
