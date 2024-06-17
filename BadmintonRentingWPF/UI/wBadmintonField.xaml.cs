@@ -21,6 +21,11 @@ namespace BadmintonRentingWPF.UI
             Loaded += Window_Loaded;
         }
 
+        private void InitializeComponent()
+        {
+            throw new NotImplementedException();
+        }
+
         private async void grdCustomer_ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             try

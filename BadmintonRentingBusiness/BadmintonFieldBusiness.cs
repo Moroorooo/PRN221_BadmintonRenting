@@ -42,6 +42,26 @@ namespace BadmintonRentingBusiness
             }
         }
 
+        public async Task<IBusinessResult> Create(BadmintonField entity)
+        {
+            try
+            {
+                var result = await _unitOfWork.BadmintonFieldReposiory.CreateAsync(entity);
+                if (result > 0)
+                {
+                    return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
+                }
+                else
+                {
+                    return new BusinessResult(Const.FAIL_CREATE_CODE, Const.FAIL_CREATE_MSG);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+            }
+        }
+
         public async Task<IBusinessResult> DeleteById(long id)
         {
             try
@@ -111,6 +131,26 @@ namespace BadmintonRentingBusiness
             }
         }
 
+        public async Task<IBusinessResult> GetById(long? id)
+        {
+            try
+            {
+                var badmintonField = await _unitOfWork.BadmintonFieldReposiory.GetByIdAsync(id);
+                if (badmintonField != null)
+                {
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, badmintonField);
+                }
+                else
+                {
+                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA_MSG);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+            }
+        }
+
         public async Task<IBusinessResult> Update(long id, BadmintonFieldRequestDTO newbadmintonFieldRequestDTO)
         {
             try
@@ -123,6 +163,35 @@ namespace BadmintonRentingBusiness
                 existingField.StartTime = newbadmintonFieldRequestDTO.StartTime;
                 existingField.EndTime = newbadmintonFieldRequestDTO.EndTime;
                 existingField.IsActive = newbadmintonFieldRequestDTO.IsActive;
+
+                var result = await _unitOfWork.BadmintonFieldReposiory.UpdateAsync(existingField);
+                if (result > 0)
+                {
+                    return new BusinessResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG);
+                }
+                else
+                {
+                    return new BusinessResult(Const.FAIL_UPDATE_CODE, Const.FAIL_UPDATE_MSG);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> Update(long id, BadmintonField badmintonField)
+        {
+            try
+            {
+                var existingField = await _unitOfWork.BadmintonFieldReposiory.GetByIdAsync(id);
+
+                existingField.BadmintonFieldName = badmintonField.BadmintonFieldName;
+                existingField.Address = badmintonField.Address;
+                existingField.Description = badmintonField.Description;
+                existingField.StartTime = badmintonField.StartTime;
+                existingField.EndTime = badmintonField.EndTime;
+                existingField.IsActive = badmintonField.IsActive;
 
                 var result = await _unitOfWork.BadmintonFieldReposiory.UpdateAsync(existingField);
                 if (result > 0)

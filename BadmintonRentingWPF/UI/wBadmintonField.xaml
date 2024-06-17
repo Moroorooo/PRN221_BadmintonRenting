@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="BadmintonField" Height="450" Width="1450"
         Loaded="Window_Loaded">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="41*"/>
