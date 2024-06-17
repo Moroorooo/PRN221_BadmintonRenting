@@ -19,23 +19,24 @@ namespace BadmintonRentingData.Model
         public virtual DbSet<BookingBadmintonFieldSchedule> BookingBadmintonFieldSchedules { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Schedule> Schedules { get; set; } = null!;
-        
-        public string GetConnectionString()
-        {
-            string connectionString = null;
-            IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(@"appsettings.json", true, true)
-                .Build();
-            connectionString = config["ConnectionStrings:DefaultConnection"];
-            return connectionString;
-        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(GetConnectionString());
             }
+        }
+
+        private string GetConnectionString()
+        {
+            IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+            var strConn = config["ConnectionStrings:DefaultConnection"];
+
+            return strConn;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

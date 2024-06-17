@@ -9,6 +9,11 @@ namespace BadmintonRentingData.Repository
         {
 
         }
+        public async Task<int> DeleteAsync(BadmintonField entity)
+        {
+            _context.BadmintonFields.Remove(entity);
+            return await _context.SaveChangesAsync();
+        }
 
         public BadmintonFieldReposiory(Net1702_PRN221_BadmintonRentingContext context) => _context = context;
     }

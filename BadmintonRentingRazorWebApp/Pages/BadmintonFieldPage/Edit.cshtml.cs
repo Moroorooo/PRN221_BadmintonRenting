@@ -1,22 +1,43 @@
-﻿using BadmintonRentingData.Model;
+﻿using BadmintonRentingBusiness;
+using BadmintonRentingCommon;
+using BadmintonRentingData;
+using BadmintonRentingData.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace BadmintonRentingRazorWebApp.Pages.BadmintonFieldPage
 {
     public class EditModel : PageModel
     {
         private readonly BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext _context;
-
-        public EditModel(BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext context)
+        private readonly IBadmintonFieldBusiness badmintonFieldBusiness;
+        //public EditModel(BadmintonRentingData.Model.Net1702_PRN221_BadmintonRentingContext context)
+        //{
+        //    _context = context;
+        //}
+        public EditModel(UnitOfWork unitOfWork)
         {
-            _context = context;
+            badmintonFieldBusiness ??= new BadmintonFieldBusiness(unitOfWork);
         }
 
         [BindProperty]
         public BadmintonField BadmintonField { get; set; } = default!;
+        //public async Task<IActionResult> OnGetAsync(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
+        //    BadmintonField = await _context.BadmintonFields.FirstOrDefaultAsync(m => m.BadmintonFieldId == id);
+
+        //    if (BadmintonField == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Page();
+        //}
         public async Task<IActionResult> OnGetAsync(long? id)
         {
             if (id == null)
@@ -24,9 +45,12 @@ namespace BadmintonRentingRazorWebApp.Pages.BadmintonFieldPage
                 return NotFound();
             }
 
-            BadmintonField = await _context.BadmintonFields.FirstOrDefaultAsync(m => m.BadmintonFieldId == id);
-
-            if (BadmintonField == null)
+            var result = await badmintonFieldBusiness.GetById(id);
+            if (result.Status == Const.SUCCESS_READ_CODE)
+            {
+                BadmintonField = result.Data as BadmintonField;
+            }
+            else
             {
                 return NotFound();
             }
@@ -36,14 +60,60 @@ namespace BadmintonRentingRazorWebApp.Pages.BadmintonFieldPage
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Page();
+        //    }
+
+        //    // Define the allowed range for StartTime and EndTime
+        //    var minHour = 4; // Example: 6 AM
+        //    var maxHour = 21; // Example: 10 PM
+
+        //    // Extract hour component of StartTime and EndTime
+        //    var startHour = BadmintonField.StartTime.Hours;
+        //    var endHour = BadmintonField.EndTime.Hours;
+
+        //    // Check if StartTime and EndTime are within the allowed range
+        //    if (startHour < minHour || startHour > maxHour)
+        //    {
+        //        ModelState.AddModelError("BadmintonField.StartTime", "Start Time must be between 4 AM and 9 PM.");
+        //        return Page();
+        //    }
+
+        //    if (endHour < minHour || endHour > maxHour)
+        //    {
+        //        ModelState.AddModelError("BadmintonField.EndTime", "End Time must be between 4 AM and 9 PM.");
+        //        return Page();
+        //    }
+
+        //    _context.Attach(BadmintonField).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!BadmintonFieldExists(BadmintonField.BadmintonFieldId))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return RedirectToPage("./Index");
+        //}
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
-            // Define the allowed range for StartTime and EndTime
             var minHour = 4; // Example: 6 AM
             var maxHour = 21; // Example: 10 PM
 
@@ -63,26 +133,18 @@ namespace BadmintonRentingRazorWebApp.Pages.BadmintonFieldPage
                 ModelState.AddModelError("BadmintonField.EndTime", "End Time must be between 4 AM and 9 PM.");
                 return Page();
             }
+            var result = await badmintonFieldBusiness.Update(BadmintonField.BadmintonFieldId, BadmintonField);
 
-            _context.Attach(BadmintonField).State = EntityState.Modified;
-
-            try
+            if (result.Status == Const.SUCCESS_UPDATE_CODE)
             {
-                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!BadmintonFieldExists(BadmintonField.BadmintonFieldId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                // Handle update failure, possibly by adding a model error
+                ModelState.AddModelError(string.Empty, result.Message);
+                return Page();
             }
-
-            return RedirectToPage("./Index");
         }
 
         private bool BadmintonFieldExists(long id)
