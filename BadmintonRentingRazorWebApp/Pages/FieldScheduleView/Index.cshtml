@@ -1,14 +1,14 @@
 ﻿@page
-@model BadmintonRentingRazorWebApp.Pages.FieldScheduleIndexModel
+@model BadmintonRentingRazorWebApp.Pages.FieldScheduleView.IndexModel
 
 @{
-    ViewData["Title"] = "FieldScheduleIndex";
+    ViewData["Title"] = "Index";
 }
 
-<h1>FieldScheduleIndex</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-page="FieldScheduleCreate">Create New</a>
+    <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -20,10 +20,10 @@
                 @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BookingId)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonFieldName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonFieldName)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BookingId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].ScheduleName)
@@ -41,10 +41,10 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BookingId)
+                @Html.DisplayFor(modelItem => item.BadmintonFieldName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BadmintonFieldName)
+                @Html.DisplayFor(modelItem => item.BookingId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ScheduleName)

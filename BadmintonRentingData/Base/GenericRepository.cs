@@ -1,14 +1,9 @@
 ﻿using BadmintonRentingData.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BadmintonRentingData.Base
 {
-   
+
     public class GenericRepository<T> where T : class
     {
         protected Net1702_PRN221_BadmintonRentingContext _context;
@@ -71,12 +66,12 @@ namespace BadmintonRentingData.Base
             return true;
         }
 
-        public T GetById(int id)
+        public T GetById(long id)
         {
             return _dbSet.Find(id);
         }
 
-        public async Task<T> GetByIdAsync(long id)
+        public async Task<T> GetByIdAsync(long? id)
         {
             return await _dbSet.FindAsync(id);
         }
