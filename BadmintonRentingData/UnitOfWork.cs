@@ -22,6 +22,7 @@ namespace BadmintonRentingData
         private CustomerRepository _customerRepository;
         public UnitOfWork()
         {
+            _BadmintonFieldReposiory ??= new BadmintonFieldReposiory();
             _bookingBadmintonFieldSchedule ??= new BookingBadmintonFieldScheduleRepository();
             _customerRepository ??= new CustomerRepository();
         }
