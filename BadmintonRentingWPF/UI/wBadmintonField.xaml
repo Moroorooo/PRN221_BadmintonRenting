@@ -1,0 +1,87 @@
+﻿<Window x:Class="BadmintonRentingWPF.UI.wBadmintonField"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BadmintonRentingWPF.UI"
+        mc:Ignorable="d"
+        Title="BadmintonField" Height="450" Width="1450"
+        Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="41*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1368*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="6">
+            <GroupBox Header="Badminton Form" Margin="10">
+                <Grid Height="50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="200"/>
+
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="BadmintonFieldId" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Width="107" />
+                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtBadmintonFieldId" Height="25" Text="{Binding Path=BadmintonField.BadmintonFieldId, Mode=TwoWay}" Margin="27,13,0,12" Width="46" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="1" Grid.Row="0" Content="BadmintonFieldName" HorizontalAlignment="Left" VerticalContentAlignment="Center" RenderTransformOrigin="0.095,0.51" Margin="78,-4,0,4" Grid.ColumnSpan="2" Width="132" />
+                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBadmintonFieldName" Height="25" Text="{Binding Path=BadmintonField.BadmintonFieldName, Mode=TwoWay}" Margin="15,10,0,15" Width="126" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+                    <Label Grid.Column="3" Grid.Row="0" Content="Address" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="0" x:Name="txtAddress" Height="25" Text="{Binding Path=BadmintonField.Address, Mode=TwoWay}" Margin="126,15,0,10" Width="114" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+                    <Label Grid.Column="4" Grid.Row="0" Content="Description" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="45,0,0,0" />
+                    <TextBox Grid.Column="5" Grid.Row="0" x:Name="txtDescription" Height="25" Text="{Binding Path=BadmintonField.Description, Mode=TwoWay}" Margin="35,13,0,12" Width="106" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="5" Grid.Row="0" Content="StartTime" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="146,0,0,0" />
+                    <TextBox Grid.Column="6" Grid.Row="0" x:Name="txtStartTime" Height="25" Text="{Binding Path=BadmintonField.StartTime, Mode=TwoWay}" Margin="11,15,0,10" Width="96" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+                    <Label Grid.Column="7" Grid.Row="0" Content="EndTime" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="27,2,0,-3" />
+                    <TextBox Grid.Column="7" Grid.Row="0" x:Name="txtEndTime" Height="25" Text="{Binding Path=BadmintonField.EndTime, Mode=TwoWay}" Margin="83,15,0,10" Width="107" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="8" Grid.Row="0" Content="IsActive" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="9,2,0,-2" />
+                    <TextBox Grid.Column="9" Grid.Row="0" x:Name="txtIsActive" Height="25" Text="{Binding Path=BadmintonField.IsActive, Mode=TwoWay}" Margin="5" Width="180" HorizontalAlignment="Left"/>
+                </Grid>
+            </GroupBox>
+            <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="ButtonSave" Content="Save" Height="30" Width="80" Click="ButtonSave_Click"/>
+                <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/>
+            </StackPanel>
+            <StackPanel Height="210">
+                <DataGrid x:Name="grdCustomer" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdCustomer_MouseDoubleClick" SelectionMode="Single" SelectionUnit="FullRow">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="BadmintonFieldId" Binding="{Binding Path=BadmintonFieldId}" Visibility="Visible"/>
+                        <DataGridTextColumn Header="BadmintonFieldName" Binding="{Binding Path=BadmintonFieldName}" Width="300" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Address" Binding="{Binding Path=Address}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" Width="300" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="StartTime" Binding="{Binding Path=StartTime}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="EndTime" Binding="{Binding Path=EndTime}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="IsActive" Binding="{Binding Path=IsActive}" Width="100" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Width="50">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="X" x:Name="ButtonDelete" CommandParameter="{Binding Path=BadmintonFieldId}" Click="grdCustomer_ButtonDelete_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
