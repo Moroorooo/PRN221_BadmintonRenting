@@ -13,12 +13,12 @@ builder.Services.AddDbContext<Net1702_PRN221_BadmintonRentingContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<BadmintonFieldReposiory>();
-builder.Services.AddScoped<GenericRepository<BadmintonField>, BadmintonFieldReposiory>();
 builder.Services.AddSession();
 builder.Services.AddScoped<IBookingBadmintonFieldScheduleBusiness, BookingBadmintonFieldScheduleBusiness>();
 builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICustomerBusiness, CustomerBusiness>();
 builder.Services.AddScoped<CustomerRepository>();
+builder.Services.AddScoped<IBookingBusiness, BookingBusiness>();
 //builder.Services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/FieldScheduleIndex", ""));
 builder.Services.AddRazorPages();
 var app = builder.Build();

@@ -1,0 +1,72 @@
+﻿@page
+@model BadmintonRentingRazorWebApp.Pages.BookingView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].BookingType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].CheckInStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].IsStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].PaymentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Customer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Booking) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckInStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.BookingId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.BookingId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.BookingId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
