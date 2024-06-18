@@ -30,32 +30,40 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 
         public IList<Customer> Customer { get; set; } = new List<Customer>();
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (!string.IsNullOrEmpty(SearchName) || !string.IsNullOrEmpty(SearchEmail) || !string.IsNullOrEmpty(SearchPhone))
+            if (HttpContext.Session.GetString("Role") == null || HttpContext.Session.GetString("Role") != "Admin")
             {
-                var result = await _customerBusiness.SearchByNameByEmailByPhone(SearchName, SearchEmail, ParsePhone(SearchPhone));
-                if (result.Status == Const.SUCCESS_READ_CODE)
-                {
-                    Customer = (List<Customer>)result.Data;
-                }
-                else
-                {
-                    Customer = new List<Customer>(); // Handle if search fails
-                }
+                return RedirectToPage("../Index");
             }
             else
             {
-                var result = await _customerBusiness.GetAll();
-                if (result.Status == Const.SUCCESS_READ_CODE)
+                if (!string.IsNullOrEmpty(SearchName) || !string.IsNullOrEmpty(SearchEmail) || !string.IsNullOrEmpty(SearchPhone))
                 {
-                    Customer = (List<Customer>)result.Data;
+                    var result = await _customerBusiness.SearchByNameByEmailByPhone(SearchName, SearchEmail, ParsePhone(SearchPhone));
+                    if (result.Status == Const.SUCCESS_READ_CODE)
+                    {
+                        Customer = (List<Customer>)result.Data;
+                    }
+                    else
+                    {
+                        Customer = new List<Customer>(); // Handle if search fails
+                    }
                 }
                 else
                 {
-                    Customer = new List<Customer>(); // Handle if GetAll fails
+                    var result = await _customerBusiness.GetAll();
+                    if (result.Status == Const.SUCCESS_READ_CODE)
+                    {
+                        Customer = (List<Customer>)result.Data;
+                    }
+                    else
+                    {
+                        Customer = new List<Customer>(); // Handle if GetAll fails
+                    }
                 }
-            }
+                 return Page();
+            }           
         }
 
         private int? ParsePhone(string phoneStr)
