@@ -21,6 +21,10 @@ namespace BadmintonRentingRazorWebApp.Pages
 
         public IActionResult OnGet()
         {
+            if (HttpContext.Session.GetString("Role") != null)
+            {
+                HttpContext.Session.Remove("Role");
+            }
             return Page();
         }
 
@@ -31,6 +35,7 @@ namespace BadmintonRentingRazorWebApp.Pages
         [BindProperty]
         public string Message { get; set; }
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (_business == null)
