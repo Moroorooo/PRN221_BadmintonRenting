@@ -13,4 +13,10 @@ namespace BadmintonRentingData.DTO
         public string Email { get; set; } = null!;
         public string IsStatus { get; set; } = null!;
     }
+
+    public class PagedResult<T>
+    {
+        public List<T> Items { get; set; } = new List<T>();
+        public int TotalCount { get; set; }
+    }
 }

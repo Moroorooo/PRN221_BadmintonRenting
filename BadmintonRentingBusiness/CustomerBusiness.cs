@@ -98,6 +98,18 @@ namespace BadmintonRentingBusiness
             }
         }
 
+        public async Task<IBusinessResult> GetAllPaged(int pageNumber, int pageSize)
+        {
+            try
+            {
+                var pagedResult = await _unitOfWork.CustomerRepository.GetAllPagedAsync(pageNumber, pageSize);
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, pagedResult);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+            }
+        }
         public async Task<IBusinessResult> GetById(long id)
         {
             try

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
 using BadmintonRentingBusiness;
 using BadmintonRentingCommon;
+using System.Drawing.Printing;
+using BadmintonRentingData.DTO;
 
 namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
@@ -29,7 +31,12 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
         public string SearchPhone { get; set; }
 
         public IList<Customer> Customer { get; set; } = new List<Customer>();
+                [BindProperty(SupportsGet = true)]
+        public int PageNumber { get; set; } = 1;
 
+        [BindProperty(SupportsGet = true)]
+        public int PageSize { get; set; } = 5;
+        public int TotalCount { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
             if (HttpContext.Session.GetString("Role") == null || HttpContext.Session.GetString("Role") != "Admin")
@@ -52,10 +59,15 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
                 }
                 else
                 {
-                    var result = await _customerBusiness.GetAll();
+                    var result = await _customerBusiness.GetAllPaged(PageNumber, PageSize);
                     if (result.Status == Const.SUCCESS_READ_CODE)
                     {
-                        Customer = (List<Customer>)result.Data;
+                        var pagedResult = result.Data as PagedResult<Customer>;
+                        if (pagedResult != null)
+                        {
+                            Customer = pagedResult.Items;
+                            TotalCount = pagedResult.TotalCount;
+                        }
                     }
                     else
                     {
