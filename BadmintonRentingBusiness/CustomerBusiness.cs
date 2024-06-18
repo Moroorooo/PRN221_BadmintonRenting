@@ -3,11 +3,14 @@ using BadmintonRentingCommon;
 using BadmintonRentingData;
 using BadmintonRentingData.DTO;
 using BadmintonRentingData.Model;
+using BadmintonRentingData.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BadmintonRentingBusiness
 {
@@ -24,10 +27,10 @@ namespace BadmintonRentingBusiness
             {
                 var newCustomer = new Customer
                 {                   
-                    CustomerName = newCustomerDTO.CustomerName,
+                    CustomerName = newCustomerDTO.CustomerName.Trim(),
                     Phone = newCustomerDTO.Phone,
-                    Email = newCustomerDTO.Email,
-                    IsStatus = newCustomerDTO.IsStatus
+                    Email = newCustomerDTO.Email.Trim(),
+                    IsStatus = newCustomerDTO.IsStatus.Trim()
                 };
                 var result = await _unitOfWork.CustomerRepository.CreateAsync(newCustomer);
                 if (result > 0)
@@ -115,16 +118,29 @@ namespace BadmintonRentingBusiness
             }
         }
 
+        public async Task<IBusinessResult> SearchByNameByEmailByPhone(string name, string email, int? phone)
+        {
+            try
+            {
+                var customers = await _unitOfWork.CustomerRepository.SearchByNameByEmailByPhone(name, email, phone);
+                return new BusinessResult(Const.SUCCESS_READ_CODE, "Search successful", customers);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, $"An error occurred: {ex.Message}");
+            }
+        }
+
         public async Task<IBusinessResult> Update(long id,  CustomerRequestDTO newCustomerDTO)
         {
             try
             {
                 var existingCustomer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
 
-                existingCustomer.CustomerName = newCustomerDTO.CustomerName;
+                existingCustomer.CustomerName = newCustomerDTO.CustomerName.Trim();
                 existingCustomer.Phone = newCustomerDTO.Phone;
-                existingCustomer.Email = newCustomerDTO.Email;
-                existingCustomer.IsStatus = newCustomerDTO.IsStatus;
+                existingCustomer.Email = newCustomerDTO.Email.Trim();
+                existingCustomer.IsStatus = newCustomerDTO.IsStatus.Trim();
                 
                 var result = await _unitOfWork.CustomerRepository.UpdateAsync(existingCustomer);
                 if (result > 0)

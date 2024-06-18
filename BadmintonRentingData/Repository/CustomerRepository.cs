@@ -1,5 +1,12 @@
-﻿using BadmintonRentingData.Base;
+﻿using BadmintonRentingCommon;
+using BadmintonRentingData.Base;
 using BadmintonRentingData.Model;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BadmintonRentingData.Repository
 {
@@ -10,14 +17,26 @@ namespace BadmintonRentingData.Repository
 
         public CustomerRepository(Net1702_PRN221_BadmintonRentingContext context) => _context = context;
 
-        public async Task<int> CreateAsync(BadmintonField newBadmintonField)
+        public async Task<List<Customer>> SearchByNameByEmailByPhone(string name, string email, int? phone)
         {
-            throw new NotImplementedException();
-        }
+            var query = _context.Customers.AsQueryable();
 
-        public async Task<int> UpdateAsync(BadmintonField badmintonField)
-        {
-            throw new NotImplementedException();
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(c => c.CustomerName.Contains(name));
+            }
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                query = query.Where(c => c.Email.Contains(email));
+            }
+
+            if (phone.HasValue)
+            {
+                query = query.Where(c => c.Phone == phone.Value);
+            }
+
+            return await query.ToListAsync();
         }
     }
 }
