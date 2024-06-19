@@ -9,7 +9,7 @@ namespace BadmintonRentingData
     {
         private BookingBadmintonFieldScheduleRepository _bookingBadmintonFieldSchedule;
 
-        private BadmintonFieldReposiory _BadmintonFieldReposiory;
+        private BadmintonFieldReposiory _badmintonFieldReposiory;
 
         private ScheduleRepository _scheduleRepository;
 
@@ -22,9 +22,10 @@ namespace BadmintonRentingData
         private CustomerRepository _customerRepository;
         public UnitOfWork()
         {
-            _BadmintonFieldReposiory ??= new BadmintonFieldReposiory();
+            _badmintonFieldReposiory ??= new BadmintonFieldReposiory();
             _bookingBadmintonFieldSchedule ??= new BookingBadmintonFieldScheduleRepository();
             _customerRepository ??= new CustomerRepository();
+            _badmintonFieldReposiory ??= new BadmintonFieldReposiory();
         }
 
         public BookingBadmintonFieldScheduleRepository BookingBadmintonFieldScheduleRepository
@@ -46,7 +47,7 @@ namespace BadmintonRentingData
         {
             get
             {
-                return _BadmintonFieldReposiory = new BadmintonFieldReposiory();
+                return _badmintonFieldReposiory ??= new BadmintonFieldReposiory(_context);
             }
         }
 

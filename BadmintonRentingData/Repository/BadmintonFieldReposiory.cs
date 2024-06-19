@@ -14,5 +14,7 @@ namespace BadmintonRentingData.Repository
             _context.BadmintonFields.Remove(entity);
             return await _context.SaveChangesAsync();
         }
+
+        public BadmintonFieldReposiory(Net1702_PRN221_BadmintonRentingContext context) => _context = context;
     }
 }

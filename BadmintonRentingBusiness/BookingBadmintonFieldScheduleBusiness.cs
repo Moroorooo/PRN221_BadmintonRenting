@@ -6,6 +6,7 @@ using BadmintonRentingData.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ namespace BadmintonRentingBusiness
         Task<IBusinessResult> GetAllSchedule();
         Task<IBusinessResult> ConvertToDTO(BookingBadmintonFieldSchedule entity);
         Task<IBusinessResult> GetAllForIndex();
+        Task<IBusinessResult> Search(long? BookingId, long? BadmintonFieldId, long? ScheduleId);
     }
 
     public class BookingBadmintonFieldScheduleBusiness : IBookingBadmintonFieldScheduleBusiness
@@ -56,7 +58,7 @@ namespace BadmintonRentingBusiness
         }
 
         public async Task<IBusinessResult> GetById(long id)
-        {
+         {
             try
             {
                 var schedule = await _unitOfWork.BookingBadmintonFieldScheduleRepository.GetByIdAsync(id);
@@ -229,8 +231,8 @@ namespace BadmintonRentingBusiness
         {
             try
             {
-                var BadmintonFieldId = entity.BadmintonField;
-                BadmintonField BadmintonField = await _unitOfWork.BadmintonFieldReposiory.GetByIdAsync(BadmintonFieldId);
+                long BadmintonFieldId = entity.BadmintonField;
+                var BadmintonField = _unitOfWork.BadmintonFieldReposiory.GetById(BadmintonFieldId);
                 Schedule Schedule = await _unitOfWork.ScheduleRepository.GetByIdAsync(entity.ScheduleId);
                 var dto = new FieldScheduleListViewDTO()
                 {
@@ -263,6 +265,26 @@ namespace BadmintonRentingBusiness
                 }
 
                 return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, listdto);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> Search(long? BookingId, long? BadmintonFieldId, long? ScheduleId)
+        {
+            try
+            {
+                var list = await _unitOfWork.BookingBadmintonFieldScheduleRepository.Search(BookingId, BadmintonFieldId, ScheduleId);
+                if (list != null)
+                {
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, list);
+                }
+                else
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG);
+                }
             }
             catch (Exception ex)
             {

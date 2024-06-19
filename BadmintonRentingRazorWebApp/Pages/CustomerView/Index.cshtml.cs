@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
 using BadmintonRentingBusiness;
 using BadmintonRentingCommon;
+using System.Drawing.Printing;
+using BadmintonRentingData.DTO;
 
 namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
@@ -29,33 +31,51 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
         public string SearchPhone { get; set; }
 
         public IList<Customer> Customer { get; set; } = new List<Customer>();
+                [BindProperty(SupportsGet = true)]
+        public int PageNumber { get; set; } = 1;
 
-        public async Task OnGetAsync()
+        [BindProperty(SupportsGet = true)]
+        public int PageSize { get; set; } = 5;
+        public int TotalCount { get; set; }
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (!string.IsNullOrEmpty(SearchName) || !string.IsNullOrEmpty(SearchEmail) || !string.IsNullOrEmpty(SearchPhone))
+            if (HttpContext.Session.GetString("Role") == null || HttpContext.Session.GetString("Role") != "Admin")
             {
-                var result = await _customerBusiness.SearchByNameByEmailByPhone(SearchName, SearchEmail, ParsePhone(SearchPhone));
-                if (result.Status == Const.SUCCESS_READ_CODE)
-                {
-                    Customer = (List<Customer>)result.Data;
-                }
-                else
-                {
-                    Customer = new List<Customer>(); // Handle if search fails
-                }
+                return RedirectToPage("../Index");
             }
             else
             {
-                var result = await _customerBusiness.GetAll();
-                if (result.Status == Const.SUCCESS_READ_CODE)
+                if (!string.IsNullOrEmpty(SearchName) || !string.IsNullOrEmpty(SearchEmail) || !string.IsNullOrEmpty(SearchPhone))
                 {
-                    Customer = (List<Customer>)result.Data;
+                    var result = await _customerBusiness.SearchByNameByEmailByPhone(SearchName, SearchEmail, ParsePhone(SearchPhone));
+                    if (result.Status == Const.SUCCESS_READ_CODE)
+                    {
+                        Customer = (List<Customer>)result.Data;
+                    }
+                    else
+                    {
+                        Customer = new List<Customer>(); // Handle if search fails
+                    }
                 }
                 else
                 {
-                    Customer = new List<Customer>(); // Handle if GetAll fails
+                    var result = await _customerBusiness.GetAllPaged(PageNumber, PageSize);
+                    if (result.Status == Const.SUCCESS_READ_CODE)
+                    {
+                        var pagedResult = result.Data as PagedResult<Customer>;
+                        if (pagedResult != null)
+                        {
+                            Customer = pagedResult.Items;
+                            TotalCount = pagedResult.TotalCount;
+                        }
+                    }
+                    else
+                    {
+                        Customer = new List<Customer>(); // Handle if GetAll fails
+                    }
                 }
-            }
+                 return Page();
+            }           
         }
 
         private int? ParsePhone(string phoneStr)

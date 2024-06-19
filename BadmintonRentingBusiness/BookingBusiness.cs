@@ -1,38 +1,38 @@
 ﻿using BadmintonRentingBusiness.Base;
 using BadmintonRentingCommon;
 using BadmintonRentingData;
-using BadmintonRentingData.DTO;
 using BadmintonRentingData.Model;
-using BadmintonRentingData.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BadmintonRentingBusiness
 {
-    public class CustomerBusiness : ICustomerBusiness
+    public interface IBookingBusiness
+    {
+        Task<IBusinessResult> GetAll();
+        Task<IBusinessResult> GetById(long id);
+        Task<IBusinessResult> GetById(string id);
+        Task<IBusinessResult> Create(Booking entity);
+        Task<IBusinessResult> Update(Booking entity);
+        Task<IBusinessResult> DeleteById(long id);
+        Task<IBusinessResult> GetAllCustomer();
+    }
+    public class BookingBusiness : IBookingBusiness
     {
         private readonly UnitOfWork _unitOfWork;
-        public CustomerBusiness(UnitOfWork unitOfWork)
+        public BookingBusiness()
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = new UnitOfWork();
         }
-        public async Task<IBusinessResult> Create(CustomerRequestDTO newCustomerDTO)
+
+        public async Task<IBusinessResult> Create(Booking entity)
         {
             try
             {
-                var newCustomer = new Customer
-                {                   
-                    CustomerName = newCustomerDTO.CustomerName.Trim(),
-                    Phone = newCustomerDTO.Phone,
-                    Email = newCustomerDTO.Email.Trim(),
-                    IsStatus = newCustomerDTO.IsStatus.Trim()
-                };
-                var result = await _unitOfWork.CustomerRepository.CreateAsync(newCustomer);
+                var result = await _unitOfWork.BookingRepository.CreateAsync(entity);
                 if (result > 0)
                 {
                     return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
@@ -50,14 +50,13 @@ namespace BadmintonRentingBusiness
 
         public async Task<IBusinessResult> DeleteById(long id)
         {
-            try
+            try 
             {
-                var customer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
-                if (customer != null)
+                var booking = await _unitOfWork.BookingRepository.GetByIdAsync(id);
+                if (booking  != null)
                 {
-                    customer.IsStatus = "Banned";
-                    var result = await _unitOfWork.CustomerRepository.UpdateAsync(customer);
-                    if (result > 0)
+                    var result = await _unitOfWork.BookingRepository.RemoveAsync(booking);
+                    if (result)
                     {
                         return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
                     }
@@ -81,15 +80,14 @@ namespace BadmintonRentingBusiness
         {
             try
             {
-                var listUser = await _unitOfWork.CustomerRepository.GetAllAsync();
-
-                if (listUser == null)
+                var list = await _unitOfWork.BookingRepository.GetAllAsync();
+                if (list == null)
                 {
                     return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA_MSG);
                 }
                 else
                 {
-                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, listUser);
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, list);
                 }
             }
             catch (Exception ex)
@@ -98,30 +96,38 @@ namespace BadmintonRentingBusiness
             }
         }
 
-        public async Task<IBusinessResult> GetAllPaged(int pageNumber, int pageSize)
+        public async Task<IBusinessResult> GetAllCustomer()
         {
             try
             {
-                var pagedResult = await _unitOfWork.CustomerRepository.GetAllPagedAsync(pageNumber, pageSize);
-                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, pagedResult);
+                var list = await _unitOfWork.CustomerRepository.GetAllAsync();
+                if (list == null)
+                {
+                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA_MSG);
+                }
+                else
+                {
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, list);
+                }
             }
             catch (Exception ex)
             {
                 return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
             }
         }
+
         public async Task<IBusinessResult> GetById(long id)
         {
             try
             {
-                var customer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
-                if (customer != null)
+                var booking = await _unitOfWork.BookingRepository.GetByIdAsync(id);
+                if (booking == null)
                 {
-                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, customer);
+                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA_MSG);
                 }
                 else
                 {
-                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA_MSG);
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, booking);
                 }
             }
             catch (Exception ex)
@@ -130,31 +136,31 @@ namespace BadmintonRentingBusiness
             }
         }
 
-        public async Task<IBusinessResult> SearchByNameByEmailByPhone(string name, string email, int? phone)
+        public async Task<IBusinessResult> GetById(string id)
         {
             try
             {
-                var customers = await _unitOfWork.CustomerRepository.SearchByNameByEmailByPhone(name, email, phone);
-                return new BusinessResult(Const.SUCCESS_READ_CODE, "Search successful", customers);
+                var booking = await _unitOfWork.BookingRepository.GetByNameAsync(id);
+                if (booking == null)
+                {
+                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA_MSG);
+                }
+                else
+                {
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, booking);
+                }
             }
             catch (Exception ex)
             {
-                return new BusinessResult(Const.ERROR_EXCEPTION, $"An error occurred: {ex.Message}");
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
             }
         }
 
-        public async Task<IBusinessResult> Update(long id,  CustomerRequestDTO newCustomerDTO)
+        public async Task<IBusinessResult> Update(Booking entity)
         {
             try
             {
-                var existingCustomer = await _unitOfWork.CustomerRepository.GetByIdAsync(id);
-
-                existingCustomer.CustomerName = newCustomerDTO.CustomerName.Trim();
-                existingCustomer.Phone = newCustomerDTO.Phone;
-                existingCustomer.Email = newCustomerDTO.Email.Trim();
-                existingCustomer.IsStatus = newCustomerDTO.IsStatus.Trim();
-                
-                var result = await _unitOfWork.CustomerRepository.UpdateAsync(existingCustomer);
+                var result = await _unitOfWork.BookingRepository.UpdateAsync(entity);
                 if (result > 0)
                 {
                     return new BusinessResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG);

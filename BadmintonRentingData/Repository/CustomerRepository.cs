@@ -1,5 +1,6 @@
 ﻿using BadmintonRentingCommon;
 using BadmintonRentingData.Base;
+using BadmintonRentingData.DTO;
 using BadmintonRentingData.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -37,6 +38,19 @@ namespace BadmintonRentingData.Repository
             }
 
             return await query.ToListAsync();
+        }
+
+        public async Task<PagedResult<Customer>> GetAllPagedAsync(int pageNumber, int pageSize)
+        {
+            var query = _context.Customers.AsQueryable();
+            var totalCount = await query.CountAsync();
+            var customers = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return new PagedResult<Customer>
+            {
+                Items = customers,
+                TotalCount = totalCount
+            };
         }
     }
 }

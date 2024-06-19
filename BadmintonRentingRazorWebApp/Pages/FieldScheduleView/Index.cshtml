@@ -7,6 +7,20 @@
 
 <h1>Index</h1>
 
+<div>
+    <form method="post">
+        <h2>Booking ID:</h2>
+        <select asp-for="BookingId" class="form-control" asp-items="ViewBag.Booking"></select>
+        <h2>Badminton Field ID:</h2>
+        <select asp-for="BadmintonFieldId" class="form-control" asp-items="ViewBag.BadmintonField"></select>
+        <h2>Schedule ID:</h2>
+        <select asp-for="ScheduleId" class="form-control" asp-items="ViewBag.Schedule"></select>
+        <input type="submit" name="action" value="Search" class="btn btn-primary"/>
+        <input type="submit" name="action" value="Reset" class="bth btn-primary" />
+    </form>
+</div>
+
+<h2 style="color: red">@Model.Message</h2>
 <p>
     <a asp-page="Create">Create New</a>
 </p>
@@ -20,13 +34,13 @@
                 @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonFieldName)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BadmintonField)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].BookingId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].ScheduleName)
+                @Html.DisplayNameFor(model => model.BookingBadmintonFieldSchedule[0].ScheduleId)
             </th>
             <th></th>
         </tr>
@@ -41,13 +55,13 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BadmintonFieldName)
+                @Html.DisplayFor(modelItem => item.BadmintonField)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BookingId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ScheduleName)
+                @Html.DisplayFor(modelItem => item.ScheduleId)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.OrderBadmintonFieldScheduleId">Edit</a> |

@@ -12,9 +12,16 @@ namespace BadmintonRentingRazorWebApp.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            if (HttpContext.Session.GetString("Role") == null || HttpContext.Session.GetString("Role") != "Admin")
+            {
+                return RedirectToPage("./Login");
+            }
+            else
+            {
+                return Page();
+            }
         }
     }
 }
