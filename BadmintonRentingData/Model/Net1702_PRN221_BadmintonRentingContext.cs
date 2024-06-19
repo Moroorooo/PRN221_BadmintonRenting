@@ -28,6 +28,14 @@ namespace BadmintonRentingData.Model
             }
         }
 
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Net1702_PRN221_BadmintonRenting;TrustServerCertificate=True;");
+        //    }
+        //}
+
         private string GetConnectionString()
         {
             IConfiguration config = new ConfigurationBuilder()
