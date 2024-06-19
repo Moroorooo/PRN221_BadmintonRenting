@@ -13,9 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BadmintonRentingWebApp", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BadmintonRentingRazorWebApp", "BadmintonRentingRazorWebApp\BadmintonRentingRazorWebApp.csproj", "{1DA449CC-ED22-45D0-8B39-6C7D3F477BC8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BadmintonRentingWPFApp", "BadmintonRentingWPFApp\BadmintonRentingWPFApp.csproj", "{834CA78A-A2A3-41BA-B79F-172D3BB8016E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BadmintonRentingWPF", "BadmintonRentingWPF\BadmintonRentingWPF.csproj", "{4C76E210-9F94-4375-ADB6-FC1B245122EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadmintonRentingWPF", "BadmintonRentingWPF\BadmintonRentingWPF.csproj", "{8CD64687-18F7-4BD5-BD4C-FB9594B7512D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +41,10 @@ Global
 		{1DA449CC-ED22-45D0-8B39-6C7D3F477BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA449CC-ED22-45D0-8B39-6C7D3F477BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA449CC-ED22-45D0-8B39-6C7D3F477BC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{834CA78A-A2A3-41BA-B79F-172D3BB8016E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{834CA78A-A2A3-41BA-B79F-172D3BB8016E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{834CA78A-A2A3-41BA-B79F-172D3BB8016E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{834CA78A-A2A3-41BA-B79F-172D3BB8016E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C76E210-9F94-4375-ADB6-FC1B245122EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C76E210-9F94-4375-ADB6-FC1B245122EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C76E210-9F94-4375-ADB6-FC1B245122EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C76E210-9F94-4375-ADB6-FC1B245122EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CD64687-18F7-4BD5-BD4C-FB9594B7512D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CD64687-18F7-4BD5-BD4C-FB9594B7512D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CD64687-18F7-4BD5-BD4C-FB9594B7512D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CD64687-18F7-4BD5-BD4C-FB9594B7512D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

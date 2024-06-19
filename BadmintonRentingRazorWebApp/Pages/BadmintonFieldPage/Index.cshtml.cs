@@ -30,43 +30,52 @@ namespace BadmintonRentingRazorWebApp.Pages.BadmintonFieldPage
         [BindProperty(SupportsGet = true)]
         public bool? SearchIsActive { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            var result = await badmintonFieldBusiness.GetAll();
-            if (result != null && result.Status > 0 && result.Data != null)
+            if (HttpContext.Session.GetString("Role") == null || HttpContext.Session.GetString("Role") != "Admin")
             {
-                BadmintonField = result.Data as List<BadmintonField>;
-
-                if (!string.IsNullOrEmpty(SearchFieldName))
-                {
-                    BadmintonField = BadmintonField.Where(f => f.BadmintonFieldName.Contains(SearchFieldName, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-
-                if (!string.IsNullOrEmpty(SearchAddress))
-                {
-                    BadmintonField = BadmintonField.Where(f => f.Address.Contains(SearchAddress, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-
-                if (!string.IsNullOrEmpty(SearchDescription))
-                {
-                    BadmintonField = BadmintonField.Where(f => f.Description.Contains(SearchDescription, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-
-                if (SearchStartTime.HasValue)
-                {
-                    BadmintonField = BadmintonField.Where(f => f.StartTime == SearchStartTime.Value).ToList();
-                }
-
-                if (SearchEndTime.HasValue)
-                {
-                    BadmintonField = BadmintonField.Where(f => f.EndTime == SearchEndTime.Value).ToList();
-                }
-
-                if (SearchIsActive.HasValue)
-                {
-                    BadmintonField = BadmintonField.Where(f => f.IsActive == SearchIsActive.Value).ToList();
-                }
+                return RedirectToPage("/Login");
             }
+            else
+            {
+                var result = await badmintonFieldBusiness.GetAll();
+                if (result != null && result.Status > 0 && result.Data != null)
+                {
+                    BadmintonField = result.Data as List<BadmintonField>;
+
+                    if (!string.IsNullOrEmpty(SearchFieldName))
+                    {
+                        BadmintonField = BadmintonField.Where(f => f.BadmintonFieldName.Contains(SearchFieldName, StringComparison.OrdinalIgnoreCase)).ToList();
+                    }
+
+                    if (!string.IsNullOrEmpty(SearchAddress))
+                    {
+                        BadmintonField = BadmintonField.Where(f => f.Address.Contains(SearchAddress, StringComparison.OrdinalIgnoreCase)).ToList();
+                    }
+
+                    if (!string.IsNullOrEmpty(SearchDescription))
+                    {
+                        BadmintonField = BadmintonField.Where(f => f.Description.Contains(SearchDescription, StringComparison.OrdinalIgnoreCase)).ToList();
+                    }
+
+                    if (SearchStartTime.HasValue)
+                    {
+                        BadmintonField = BadmintonField.Where(f => f.StartTime == SearchStartTime.Value).ToList();
+                    }
+
+                    if (SearchEndTime.HasValue)
+                    {
+                        BadmintonField = BadmintonField.Where(f => f.EndTime == SearchEndTime.Value).ToList();
+                    }
+
+                    if (SearchIsActive.HasValue)
+                    {
+                        BadmintonField = BadmintonField.Where(f => f.IsActive == SearchIsActive.Value).ToList();
+                    }
+                }
+                return Page();
+            }
+
         }
     }
 }
