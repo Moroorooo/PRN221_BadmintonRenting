@@ -26,6 +26,7 @@ namespace BadmintonRentingData
             _bookingBadmintonFieldSchedule ??= new BookingBadmintonFieldScheduleRepository();
             _customerRepository ??= new CustomerRepository();
             _badmintonFieldReposiory ??= new BadmintonFieldReposiory();
+            _scheduleRepository ??= new ScheduleRepository();
         }
 
         public BookingBadmintonFieldScheduleRepository BookingBadmintonFieldScheduleRepository
