@@ -19,6 +19,8 @@ builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICustomerBusiness, CustomerBusiness>();
 builder.Services.AddScoped<CustomerRepository>();
 builder.Services.AddScoped<IBookingBusiness, BookingBusiness>();
+builder.Services.AddScoped<IScheduleBusiness, ScheduleBusiness>();
+builder.Services.AddScoped<ScheduleRepository>();
 //builder.Services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/FieldScheduleIndex", ""));
 builder.Services.AddRazorPages();
 var app = builder.Build();
