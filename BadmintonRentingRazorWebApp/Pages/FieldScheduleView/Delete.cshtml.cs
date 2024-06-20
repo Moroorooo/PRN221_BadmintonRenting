@@ -25,22 +25,29 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
 
         public async Task<IActionResult> OnGetAsync(long id)
         {
-            if (id == null || _business == null)
+            if (HttpContext.Session.GetString("Role") == null || HttpContext.Session.GetString("Role") != "Admin")
             {
-                return NotFound();
+                return RedirectToPage("/Login");
             }
+            else
+            {
+                if (id == null || _business == null)
+                {
+                    return NotFound();
+                }
 
-            var bookingbadmintonfieldschedule = await _business.GetById(id);
+                var bookingbadmintonfieldschedule = await _business.GetById(id);
 
-            if (bookingbadmintonfieldschedule.Message == Const.FAIL_READ_MSG)
-            {
-                return NotFound();
+                if (bookingbadmintonfieldschedule.Message == Const.FAIL_READ_MSG)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    BookingBadmintonFieldSchedule = (BookingBadmintonFieldSchedule)bookingbadmintonfieldschedule.Data;
+                }
+                return Page();
             }
-            else 
-            {
-                BookingBadmintonFieldSchedule = (BookingBadmintonFieldSchedule)bookingbadmintonfieldschedule.Data;
-            }
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(long id)

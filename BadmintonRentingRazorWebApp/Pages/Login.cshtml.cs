@@ -23,9 +23,12 @@ namespace BadmintonRentingRazorWebApp.Pages
         {
             if (HttpContext.Session.GetString("Role") != null)
             {
-                HttpContext.Session.Remove("Role");
+                return RedirectToPage("./Index");
             }
-            return Page();
+            else
+            {
+                return Page();
+            }
         }
 
         [BindProperty]
