@@ -27,37 +27,44 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
         public string Message { get; set; } = null;
         public async Task<IActionResult> OnGetAsync(long id)
         {
-            if (id == null || _business == null)
+            if (HttpContext.Session.GetString("Role") == null || HttpContext.Session.GetString("Role") != "Admin")
             {
-                return NotFound();
+                return RedirectToPage("/Login");
             }
-
-            var bookingbadmintonfieldschedule =  await _business.GetById(id);
-            if (bookingbadmintonfieldschedule.Message == Const.FAIL_READ_MSG)
+            else
             {
-                return NotFound();
-            }
-            BookingBadmintonFieldSchedule = (BookingBadmintonFieldSchedule)bookingbadmintonfieldschedule.Data;
+                if (id == null || _business == null)
+                {
+                    return NotFound();
+                }
 
-            var badmintonFieldResult = await _business.GetAllBadmintonField();
-            if (badmintonFieldResult.Message != Const.FAIL_READ_MSG)
-            {
-                ViewData["BadmintonField"] = new SelectList((List<BadmintonField>)badmintonFieldResult.Data, "BadmintonFieldId", "BadmintonFieldName");
-            }
+                var bookingbadmintonfieldschedule = await _business.GetById(id);
+                if (bookingbadmintonfieldschedule.Message == Const.FAIL_READ_MSG)
+                {
+                    return NotFound();
+                }
+                BookingBadmintonFieldSchedule = (BookingBadmintonFieldSchedule)bookingbadmintonfieldschedule.Data;
 
-            var bookingResult = await _business.GetAllBooking();
-            if (bookingResult.Message != Const.FAIL_READ_MSG)
-            {
-                ViewData["Booking"] = new SelectList((List<Booking>)bookingResult.Data, "BookingId", "BookingId");
-            }
+                var badmintonFieldResult = await _business.GetAllBadmintonField();
+                if (badmintonFieldResult.Message != Const.FAIL_READ_MSG)
+                {
+                    ViewData["BadmintonField"] = new SelectList((List<BadmintonField>)badmintonFieldResult.Data, "BadmintonFieldId", "BadmintonFieldName");
+                }
 
-            var scheduleResult = await _business.GetAllSchedule();
-            if (scheduleResult.Message != Const.FAIL_READ_MSG)
-            {
-                ViewData["Schedule"] = new SelectList((List<Schedule>)scheduleResult.Data, "ScheduleId", "ScheduleName");
+                var bookingResult = await _business.GetAllBooking();
+                if (bookingResult.Message != Const.FAIL_READ_MSG)
+                {
+                    ViewData["Booking"] = new SelectList((List<Booking>)bookingResult.Data, "BookingId", "BookingId");
+                }
 
+                var scheduleResult = await _business.GetAllSchedule();
+                if (scheduleResult.Message != Const.FAIL_READ_MSG)
+                {
+                    ViewData["Schedule"] = new SelectList((List<Schedule>)scheduleResult.Data, "ScheduleId", "ScheduleName");
+
+                }
+                return Page();
             }
-            return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
