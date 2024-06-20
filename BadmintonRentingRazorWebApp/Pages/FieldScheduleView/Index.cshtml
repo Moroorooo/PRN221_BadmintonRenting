@@ -9,11 +9,11 @@
 
 <div>
     <form method="post">
-        <h2>Booking ID:</h2>
+        <h7>Booking ID:</h7>
         <select asp-for="BookingId" class="form-control" asp-items="ViewBag.Booking"></select>
-        <h2>Badminton Field ID:</h2>
+        <h7>Badminton Field ID:</h7>
         <select asp-for="BadmintonFieldId" class="form-control" asp-items="ViewBag.BadmintonField"></select>
-        <h2>Schedule ID:</h2>
+        <h7>Schedule ID:</h7>
         <select asp-for="ScheduleId" class="form-control" asp-items="ViewBag.Schedule"></select>
         <input type="submit" name="action" value="Search" class="btn btn-primary"/>
         <input type="submit" name="action" value="Reset" class="bth btn-primary" />

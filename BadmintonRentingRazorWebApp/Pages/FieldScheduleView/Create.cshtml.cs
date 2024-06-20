@@ -22,26 +22,33 @@ namespace BadmintonRentingRazorWebApp.Pages.FieldScheduleView
 
         public async Task<IActionResult> OnGet()
         {
-            var badmintonFieldResult = await _business.GetAllBadmintonField();
-            if (badmintonFieldResult.Message != Const.FAIL_READ_MSG) 
+            if (HttpContext.Session.GetString("Role") == null || HttpContext.Session.GetString("Role") != "Admin")
             {
-                ViewData["BadmintonField"] = new SelectList((List<BadmintonField>)badmintonFieldResult.Data, "BadmintonFieldId", "BadmintonFieldName");
+                return RedirectToPage("/Login");
             }
-
-            var bookingResult = await _business.GetAllBooking();
-            if (bookingResult.Message != Const.FAIL_READ_MSG)
+            else
             {
-                ViewData["Booking"] = new SelectList((List<Booking>)bookingResult.Data, "BookingId", "BookingId");
+                var badmintonFieldResult = await _business.GetAllBadmintonField();
+                if (badmintonFieldResult.Message != Const.FAIL_READ_MSG)
+                {
+                    ViewData["BadmintonField"] = new SelectList((List<BadmintonField>)badmintonFieldResult.Data, "BadmintonFieldId", "BadmintonFieldName");
+                }
+
+                var bookingResult = await _business.GetAllBooking();
+                if (bookingResult.Message != Const.FAIL_READ_MSG)
+                {
+                    ViewData["Booking"] = new SelectList((List<Booking>)bookingResult.Data, "BookingId", "BookingId");
+                }
+
+                var scheduleResult = await _business.GetAllSchedule();
+                if (scheduleResult.Message != Const.FAIL_READ_MSG)
+                {
+                    ViewData["Schedule"] = new SelectList((List<Schedule>)scheduleResult.Data, "ScheduleId", "ScheduleName");
+
+                }
+
+                return Page();
             }
-
-            var scheduleResult = await _business.GetAllSchedule();
-            if (scheduleResult.Message != Const.FAIL_READ_MSG)
-            {
-                ViewData["Schedule"] = new SelectList((List<Schedule>)scheduleResult.Data, "ScheduleId", "ScheduleName");
-
-            }
-
-            return Page();
         }
 
         [BindProperty]
