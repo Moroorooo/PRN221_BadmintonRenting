@@ -61,9 +61,11 @@ namespace BadmintonRentingWPF.UI
         private void grdCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
+<<<<<<< HEAD
 
         }
         private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+=======
         }
         private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
