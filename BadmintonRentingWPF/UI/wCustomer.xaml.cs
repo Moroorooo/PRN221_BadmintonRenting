@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 using BadmintonRentingBusiness;
+>>>>>>> parent of 92a97db (Create,Update WPF)
 using BadmintonRentingData.Model;
 using System;
 using System.Collections.Generic;
