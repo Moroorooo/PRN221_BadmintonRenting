@@ -16,6 +16,5 @@ namespace BadmintonRentingBusiness
         Task<IBusinessResult> Create(CustomerRequestDTO newCustomer);
         Task<IBusinessResult> Update(long id, CustomerRequestDTO newCustomer);
         Task<IBusinessResult> DeleteById(long id);
-        Task<IBusinessResult> SearchByNameByEmailByPhone(string name, string email, int? phone);
     }
 }
