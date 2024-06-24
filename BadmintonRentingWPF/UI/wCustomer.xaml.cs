@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using BadmintonRentingBusiness;
 using BadmintonRentingData.DTO;
 using BadmintonRentingData.Model;
@@ -14,30 +15,46 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+=======
+﻿//using BadmintonRentingBusiness;
+//using BadmintonRentingData.Model;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Windows;
+//using System.Windows.Controls;
+//using System.Windows.Data;
+//using System.Windows.Documents;
+//using System.Windows.Input;
+//using System.Windows.Media;
+//using System.Windows.Media.Imaging;
+//using System.Windows.Shapes;
+>>>>>>> parent of 9b3990f (WPF wLoadCustomer)
 
-namespace BadmintonRentingWPF.UI
-{
-    /// <summary>
-    /// Interaction logic for wCustomer.xaml
-    /// </summary>
-    public partial class wCustomer : Window
-    {
-        private readonly ICustomerBusiness customerBusiness;
-        public wCustomer(ICustomerBusiness customerBusiness)
-        {
-            InitializeComponent();
-            this.customerBusiness = customerBusiness;
-            Loaded += Window_Loaded;
-        }
+//namespace BadmintonRentingWPF.UI
+//{
+//    /// <summary>
+//    /// Interaction logic for wCustomer.xaml
+//    /// </summary>
+//    public partial class wCustomer : Window
+//    {
+//        private readonly ICustomerBusiness customerBusiness;
+//        public wCustomer()
+//        {
+//            InitializeComponent();
+//        }
 
-        private void grdCustomer_ButtonDelete_Click(object sender, RoutedEventArgs e)
-        {
+//        private void grdCustomer_ButtonDelete_Click(object sender, RoutedEventArgs e)
+//        {
 
-        }
+//        }
 
-        private void grdCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
+//        private void grdCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+//        {
 
+<<<<<<< HEAD
         }
         private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -112,15 +129,35 @@ namespace BadmintonRentingWPF.UI
         private async Task LoadGrdCustomer()
         {
             var result = await customerBusiness.GetAll();
+=======
+//        }
+//        private void grdCustomer_SelectionChanged(object sender, MouseButtonEventArgs e)
+//        {
 
-            if (result.Status > 0 && result.Data != null)
-            {
-                grdCustomer.ItemsSource = result.Data as List<Customer>;
-            }
-            else
-            {
-                grdCustomer.ItemsSource = new List<Customer>();
-            }
-        }
-    }
-}
+//        }
+//        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+//        {
+
+//        }
+
+//        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+//        {
+
+//        }
+>>>>>>> parent of 9b3990f (WPF wLoadCustomer)
+
+//        private async void LoadGrdCustomer()
+//        {
+//            var result = await customerBusiness.GetAll();
+
+//            if (result.Status > 0 && result.Data != null)
+//            {
+//                grdCustomer.ItemsSource = result.Data as List<Customer>;
+//            }
+//            else
+//            {
+//                grdCustomer.ItemsSource = new List<Customer>();
+//            }
+//        }
+//    }
+//}
