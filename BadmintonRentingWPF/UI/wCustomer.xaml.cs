@@ -64,6 +64,19 @@ namespace BadmintonRentingWPF.UI
 
         }
         private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        }
+        private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (grdCustomer.SelectedItem is Customer selectedCustomer)
+            {
+                txtCustomerId.Text = selectedCustomer.CustomerId.ToString();
+                txtCustomerName.Text = selectedCustomer.CustomerName;
+                txtPhone.Text = selectedCustomer.Phone.ToString();
+                txtEmail.Text = selectedCustomer.Email;
+                txtIsStatus.Text = selectedCustomer.IsStatus;
+            }
+        }
+        private async void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
 
         }
