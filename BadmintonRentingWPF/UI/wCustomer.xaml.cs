@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿using BadmintonRentingBusiness;
 using BadmintonRentingData.DTO;
 using BadmintonRentingData.Model;
@@ -16,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 =======
+=======
+>>>>>>> parent of 9b3990f (WPF wLoadCustomer)
 ﻿//using BadmintonRentingBusiness;
 //using BadmintonRentingData.Model;
 //using System;
@@ -31,6 +34,9 @@ using System.Windows.Shapes;
 //using System.Windows.Media;
 //using System.Windows.Media.Imaging;
 //using System.Windows.Shapes;
+<<<<<<< HEAD
+>>>>>>> parent of 9b3990f (WPF wLoadCustomer)
+=======
 >>>>>>> parent of 9b3990f (WPF wLoadCustomer)
 
 //namespace BadmintonRentingWPF.UI
@@ -54,6 +60,7 @@ using System.Windows.Shapes;
 //        private void grdCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 //        {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         }
         private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -146,6 +153,23 @@ using System.Windows.Shapes;
 //        }
 >>>>>>> parent of 9b3990f (WPF wLoadCustomer)
 
+=======
+//        }
+//        private void grdCustomer_SelectionChanged(object sender, MouseButtonEventArgs e)
+//        {
+
+//        }
+//        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+//        {
+
+//        }
+
+//        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+//        {
+
+//        }
+
+>>>>>>> parent of 9b3990f (WPF wLoadCustomer)
 //        private async void LoadGrdCustomer()
 //        {
 //            var result = await customerBusiness.GetAll();
