@@ -19,14 +19,6 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
         {
             _customerBusiness = customerBusiness;
         }
-        [BindProperty(SupportsGet = true)]
-        public string SearchName { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public string SearchEmail { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public string SearchPhone { get; set; }
 
         public IList<Customer> Customer { get; set; } = new List<Customer>();
 
@@ -64,17 +56,10 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
                 }
                  return Page();
             }           
-        }
-
-        private int? ParsePhone(string phoneStr)
-        {
-            if (int.TryParse(phoneStr, out int phone))
+            var result = await _customerBusiness.GetAll();
+            if (result.Status == Const.SUCCESS_READ_CODE)
             {
-                return phone;
             }
-            return null;
         }
-
     }
-    
 }
