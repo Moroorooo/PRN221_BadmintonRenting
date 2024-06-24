@@ -17,7 +17,5 @@ namespace BadmintonRentingBusiness
         Task<IBusinessResult> Update(long id, CustomerRequestDTO newCustomer);
         Task<IBusinessResult> DeleteById(long id);
         Task<IBusinessResult> SearchByNameByEmailByPhone(string name, string email, int? phone);
-
-        Task<IBusinessResult> GetAllPaged(int pageNumber, int pageSize);
     }
 }
