@@ -1,29 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-using BadmintonRentingBusiness;
-=======
-﻿using BadmintonRentingBusiness;
-<<<<<<< HEAD
->>>>>>> parent of 92a97db (Create,Update WPF)
-=======
->>>>>>> parent of 92a97db (Create,Update WPF)
-using BadmintonRentingData.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-using BadmintonRentingBusiness;
+﻿using BadmintonRentingBusiness;
+
 using BadmintonRentingData.Model;
 using System;
 using System.Collections.Generic;
@@ -61,11 +38,9 @@ namespace BadmintonRentingWPF.UI
         private void grdCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-<<<<<<< HEAD
 
         }
         private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-=======
         }
         private void grdCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -79,7 +54,6 @@ namespace BadmintonRentingWPF.UI
             }
         }
         private async void ButtonSave_Click(object sender, RoutedEventArgs e)
->>>>>>> parent of b584ce3 (Delete WPF)
         {
 
         }
