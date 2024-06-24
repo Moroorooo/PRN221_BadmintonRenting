@@ -4,6 +4,8 @@
 using BadmintonRentingBusiness;
 =======
 ﻿using BadmintonRentingBusiness;
+<<<<<<< HEAD
+>>>>>>> parent of 92a97db (Create,Update WPF)
 =======
 >>>>>>> parent of 92a97db (Create,Update WPF)
 using BadmintonRentingData.Model;
