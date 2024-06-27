@@ -1,0 +1,26 @@
+[
+  {
+    "CustomerId": 1,
+    "CustomerName": "John Doe",
+    "Phone": 123456789,
+    "Email": "john.doe@example.com",
+    "IsStatus": "Active",
+    "Bookings": []
+  },
+  {
+    "CustomerId": 2,
+    "CustomerName": "Jane Smith",
+    "Phone": 987654321,
+    "Email": "jane.smith@example.com",
+    "IsStatus": "Inactive",
+    "Bookings": []
+  },
+  {
+    "CustomerId": 3,
+    "CustomerName": "Truong Trang ",
+    "Phone": 774717152,
+    "Email": "truongtrang@example.com",
+    "IsStatus": "activce",
+    "Bookings": []
+  }
+]

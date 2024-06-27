@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BadmintonRentingWebApp", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BadmintonRentingRazorWebApp", "BadmintonRentingRazorWebApp\BadmintonRentingRazorWebApp.csproj", "{1DA449CC-ED22-45D0-8B39-6C7D3F477BC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadmintonRentingWPF", "BadmintonRentingWPF\BadmintonRentingWPF.csproj", "{1D355A1F-538A-4EC0-8771-97F9C8377E09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BadmintonRentingWPF", "BadmintonRentingWPF\BadmintonRentingWPF.csproj", "{1D355A1F-538A-4EC0-8771-97F9C8377E09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFJson", "WPFJson\WPFJson.csproj", "{69CBC6BA-7743-4BA6-962A-14A5F955E3D9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{70FE5257-A385-4A18-A9BA-6112F724819E} = {70FE5257-A385-4A18-A9BA-6112F724819E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +50,10 @@ Global
 		{1D355A1F-538A-4EC0-8771-97F9C8377E09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D355A1F-538A-4EC0-8771-97F9C8377E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D355A1F-538A-4EC0-8771-97F9C8377E09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69CBC6BA-7743-4BA6-962A-14A5F955E3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69CBC6BA-7743-4BA6-962A-14A5F955E3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69CBC6BA-7743-4BA6-962A-14A5F955E3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69CBC6BA-7743-4BA6-962A-14A5F955E3D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

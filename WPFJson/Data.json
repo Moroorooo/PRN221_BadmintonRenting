@@ -1,0 +1,16 @@
+[
+  {
+    "CustomerId": 1,
+    "CustomerName": "John Doe",
+    "Phone": 123456789,
+    "Email": "john.doe@example.com",
+    "IsStatus": "Active"
+  },
+  {
+    "CustomerId": 2,
+    "CustomerName": "Jane Smith",
+    "Phone": 987654321,
+    "Email": "jane.smith@example.com",
+    "IsStatus": "Inactive"
+  }
+]
