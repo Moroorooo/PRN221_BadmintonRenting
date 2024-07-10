@@ -35,16 +35,20 @@ namespace WPFJson
 
             if (openFileDialog.ShowDialog() == true)
             {
+                //lay duong dan cua file can doc
                 string filePath = openFileDialog.FileName;
                 string fileContent = File.ReadAllText(filePath);
 
                 if (filePath.EndsWith(".json"))
                 {
+                    //chuyen doi fileContent thanh Customer
                     _customers = JsonConvert.DeserializeObject<List<Customer>>(fileContent);
                 }
                 else if (filePath.EndsWith(".xml"))
                 {
+                    //phan tich noi dung thanh mot xDocument
                     var xDocument = System.Xml.Linq.XDocument.Parse(fileContent);
+                    //chuyen doi xDocument thanh new Customer va dua vao list
                     _customers = xDocument.Descendants("Customer")
                         .Select(c => new Customer
                         {
@@ -70,6 +74,7 @@ namespace WPFJson
 
             if (saveFileDialog.ShowDialog() == true)
             {
+                //chon noi muon luu
                 string filePath = saveFileDialog.FileName;
 
                 if (filePath.EndsWith(".json"))

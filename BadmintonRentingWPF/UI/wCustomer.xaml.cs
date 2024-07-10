@@ -33,6 +33,7 @@ namespace BadmintonRentingWPF.UI
         private async void grdCustomer_ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             Button btn =(Button)sender;
+            //get id have been save in CommandParameter
             long customerId = long.Parse(btn.CommandParameter.ToString());
             await customerBusiness.DeleteById(customerId);
             await LoadGrdCustomer();
@@ -43,6 +44,7 @@ namespace BadmintonRentingWPF.UI
             DataGrid grd = sender as DataGrid;
             if (grd != null && grd.SelectedItems != null && grd.SelectedItems.Count == 1)
             {
+                //get data from data grid view
                 var row = grd.ItemContainerGenerator.ContainerFromItem(grd.SelectedItem) as DataGridRow;
                 if (row != null)
                 {
