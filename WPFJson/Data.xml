@@ -1,0 +1,16 @@
+﻿<Customers>
+	<Customer>
+		<CustomerId>1</CustomerId>
+		<CustomerName>John Doe</CustomerName>
+		<Phone>123456789</Phone>
+		<Email>john.doe@example.com</Email>
+		<IsStatus>Active</IsStatus>
+	</Customer>
+	<Customer>
+		<CustomerId>2</CustomerId>
+		<CustomerName>Jane Smith</CustomerName>
+		<Phone>987654321</Phone>
+		<Email>jane.smith@example.com</Email>
+		<IsStatus>Inactive</IsStatus>
+	</Customer>
+</Customers>

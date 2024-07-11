@@ -84,6 +84,7 @@ namespace WPFJson
                 }
                 else if (filePath.EndsWith(".xml"))
                 {
+                    //tao 1 xDocument tu danh sach customer bang linq
                     var xDocument = new System.Xml.Linq.XDocument(
                         new System.Xml.Linq.XElement("Customers",
                             _customers.Select(c => new System.Xml.Linq.XElement("Customer",
