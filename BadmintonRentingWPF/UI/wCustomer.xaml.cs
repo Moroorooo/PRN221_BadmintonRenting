@@ -32,6 +32,7 @@ namespace BadmintonRentingWPF.UI
 
         private async void grdCustomer_ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
+            //chuyen doi sender thanh button, cho phep truy cap vao cac thuoc tinh và phuong thuc cua button khi click
             Button btn =(Button)sender;
             //get id have been save in CommandParameter
             long customerId = long.Parse(btn.CommandParameter.ToString());
@@ -41,6 +42,7 @@ namespace BadmintonRentingWPF.UI
 
         private void grdCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            //chuyen doi sender thanh DataGrid, cho phep truy cap vao cac thuoc tinh và phuong thuc cua DataGrid khi click
             DataGrid grd = sender as DataGrid;
             if (grd != null && grd.SelectedItems != null && grd.SelectedItems.Count == 1)
             {
