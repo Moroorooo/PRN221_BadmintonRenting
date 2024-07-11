@@ -34,7 +34,7 @@ namespace BadmintonRentingWPF.UI
         {
             //chuyen doi sender thanh button, cho phep truy cap vao cac thuoc tinh và phuong thuc cua button khi click
             Button btn =(Button)sender;
-            //get id have been save in CommandParameter
+            //lay id luu trong  CommandParameter
             long customerId = long.Parse(btn.CommandParameter.ToString());
             await customerBusiness.DeleteById(customerId);
             await LoadGrdCustomer();
