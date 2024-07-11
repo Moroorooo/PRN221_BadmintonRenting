@@ -46,7 +46,7 @@ namespace WPFJson
                 }
                 else if (filePath.EndsWith(".xml"))
                 {
-                    //phan tich noi dung thanh mot xDocument
+                    //phan tich noi dung thanh mot xDocument, xDocument dai dien cho file xml
                     var xDocument = System.Xml.Linq.XDocument.Parse(fileContent);
                     //chuyen doi xDocument thanh new Customer va dua vao list
                     _customers = xDocument.Descendants("Customer")
