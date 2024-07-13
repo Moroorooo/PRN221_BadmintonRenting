@@ -1,9 +1,10 @@
 using BadmintonRentingBusiness;
 using BadmintonRentingData;
 using BadmintonRentingData.Repository;
+using BadmintonRentingRazorWebApp;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSignalR();
 // Add services to the container.
 
 builder.Services.AddSession();
@@ -30,12 +31,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapHub<SignalRServer>("/signalrServer");
 app.MapRazorPages();
 app.MapControllerRoute(
-    name: "customer",
-    pattern: "Customer/{action=Index}/{id?}",
-    defaults: new { controller = "CustomerView", action = "Index" });
-
+        name: "customer",
+        pattern: "Customer/{action=Index}/{id?}",
+        defaults: new { controller = "CustomerView", action = "Index" });
 app.UseSession();
 
 app.Run();

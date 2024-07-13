@@ -8,16 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using BadmintonRentingData.Model;
 using BadmintonRentingBusiness;
 using BadmintonRentingCommon;
+using Microsoft.AspNetCore.SignalR;
 
 namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 {
     public class DeleteModel : PageModel
     {
         private readonly ICustomerBusiness _customerBusiness;
-
-        public DeleteModel(ICustomerBusiness customerBusiness)
+        private readonly IHubContext<SignalRServer> _signalRHub;
+        public DeleteModel(ICustomerBusiness customerBusiness, IHubContext<SignalRServer> signalRHub)
         {
             _customerBusiness = customerBusiness;
+            _signalRHub = signalRHub;
         }
 
         [BindProperty]
@@ -54,10 +56,11 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
                 return NotFound();
             }
 
-            var result = await _customerBusiness.DeleteById(id);
-
+                var result = await _customerBusiness.DeleteById(id);
+            
             if (result.Status == Const.SUCCESS_DELETE_CODE)
             {
+                await _signalRHub.Clients.All.SendAsync("LoadCustomer");
                 return RedirectToPage("./Index");
             }
             else

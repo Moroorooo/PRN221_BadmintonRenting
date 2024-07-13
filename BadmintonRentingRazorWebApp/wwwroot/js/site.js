@@ -1,4 +1,14 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿"use strict";
+$(() => {
+    var connection = new signalR.HubConnectionBuilder().withUrl("/signalrServer").build();
 
-// Write your JavaScript code.
+    connection.start().then(function () {
+        console.log("SignalR Connected");
+    }).catch(function (err) {
+        console.error("SignalR Connection Error: ", err.toString());
+    });
+    connection.on("LoadCustomer", function () {
+        console.log("Received delete signal");
+        location.reload();
+    });
+});
