@@ -43,13 +43,17 @@ namespace BadmintonRentingData.Repository
         public async Task<PagedResult<Customer>> GetAllPagedAsync(int pageNumber, int pageSize)
         {
             var query = _context.Customers.AsQueryable();
+            // Đếm tổng số lượng bản ghi trong bảng Customers.
             var totalCount = await query.CountAsync();
+            // Lấy các bản ghi theo trang hiện tại (pageNumber) và kích thước trang (pageSize)
+            // Lấy các bản ghi của trang hiện tại.
+            // Chuyển đổi kết quả truy vấn thành danh sách.
             var customers = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-
+            // Tạo và trả về đối tượng PagedResult chứa danh sách khách hàng và tổng số bản ghi.
             return new PagedResult<Customer>
             {
-                Items = customers,
-                TotalCount = totalCount
+                Items = customers, // Danh sách các khách hàng của trang hiện tại
+                TotalCount = totalCount  // Tổng số lượng bản ghi trong bảng Customers.
             };
         }
     }

@@ -32,6 +32,8 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
             }
 
             var result = await _customerBusiness.GetById(id);
+
+            // Kiểm tra nếu trạng thái trả về là thành công và dữ liệu là một đối tượng Customer.
             if (result.Status == Const.SUCCESS_READ_CODE && result.Data is Customer customer)
             {
                 Customer = customer;

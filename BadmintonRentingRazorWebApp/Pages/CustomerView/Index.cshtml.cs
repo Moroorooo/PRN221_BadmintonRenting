@@ -50,11 +50,13 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
                     var result = await _customerBusiness.SearchByNameByEmailByPhone(SearchName, SearchEmail, ParsePhone(SearchPhone));
                     if (result.Status == Const.SUCCESS_READ_CODE)
                     {
+                        // Nếu tìm kiếm thành công, gán kết quả vào biến Customer
                         Customer = (List<Customer>)result.Data;
                     }
                     else
                     {
-                        Customer = new List<Customer>(); // Handle if search fails
+                        // Nếu tìm kiếm thất bại, khởi tạo danh sách Customer rỗng.
+                        Customer = new List<Customer>();
                     }
                 }
                 else
@@ -62,6 +64,7 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
                     var result = await _customerBusiness.GetAllPaged(PageNumber, PageSize);
                     if (result.Status == Const.SUCCESS_READ_CODE)
                     {
+                        // Nếu thành công, gán kết quả vào biến pagedResult.
                         var pagedResult = result.Data as PagedResult<Customer>;
                         if (pagedResult != null)
                         {
@@ -80,6 +83,7 @@ namespace BadmintonRentingRazorWebApp.Pages.CustomerView
 
         private int? ParsePhone(string phoneStr)
         {
+            // Kiểm tra xem chuỗi đầu vào có thể chuyển đổi thành kiểu int hay không.
             if (int.TryParse(phoneStr, out int phone))
             {
                 return phone;
