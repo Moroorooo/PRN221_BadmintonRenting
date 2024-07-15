@@ -9,6 +9,6 @@ $(() => {
     });
     connection.on("LoadCustomer", function () {
         console.log("Received delete signal");
-        location.reload();
+        location.reload();// Tải lại trang hiện tại
     });
 });
